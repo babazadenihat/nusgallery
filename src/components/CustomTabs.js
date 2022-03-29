@@ -1,20 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import GridLayout from 'react-grid-layout';
 import "../style.css"
 import * as Styled from "../styledComponents/styled";
-import { CustomCardComponent } from '../components/CustomCardComponent';
+import { CustomCardComponent } from './CustomCardComponent';
 import {Link} from "react-router-dom"
 import { Button, makeStyles } from '@material-ui/core';
 import CustomCart from './customCart';
 
-export const CustomGridTabs = (props) => {
+export const CustomTabs = (props) => {
+    const [cartData, setcartData] = useState([])
+    const [filteredData, setfilteredData] = useState([])
+    const [index, setIndex] = useState(null)
+
     const { 
         rightButtonIcon,
         rightButtonText,
         rightButtonFunc,
         paintingModal,
-        onOff,
+        tabEnable,
         tabLabel,
         cartEnable
     } 
@@ -25,27 +29,41 @@ export const CustomGridTabs = (props) => {
         width: '18rem', position: 'relative'
     }
 
+    // useEffect(() => {
+    //     fetchCartData();
+    // }, [cartData])
+
+    // useEffect(() => {
+    //     const filteredData = cartData.filter(d => d.participant);
+    //     setfilteredData(filteredData);
+    // }, [cartData])
+
+    // const fetchCartData = async () => {
+    //     setcartData() // set data
+    // }
 
     return (
         <>
             <Tabs>
-                <TabList className={classes.tablist}>
-                    {onOff && <div className='d-flex'>
+                <TabList className={[classes.tablist, !rightButtonFunc ? "justify-content-start" :
+                 tabEnable && rightButtonFunc ? 'justify-content-between' :
+                 "justify-content-end" ]}>
+                    {tabEnable && <div className='d-flex'>
                         {/* <div> */}
-                            <Tab>{tabLabel.tab1}</Tab>
+                        <Tab onClick={(e) => setIndex(e.target.value)}>{tabLabel.tab1}</Tab>
                         {/* </div> */}
                         {/* <div className='ms-2'> */}
 
-                            <Tab>{tabLabel.tab2}</Tab>
+                        <Tab onClick={(e) => setIndex(e.target.value)}>{tabLabel.tab2}</Tab>
                         {/* </div> */}
                     </div>}
                     <div>
                         {
                             rightButtonFunc &&
-                        <Styled.NusBtnPattern className='nusBlackBtn' onClick={() => rightButtonFunc(true)}>
-                            <img src={rightButtonIcon} alt="" />
-                            <span className="ms-2">{rightButtonText}</span>
-                        </Styled.NusBtnPattern>
+                            <Styled.NusBtnPattern className='nusBlackBtn' onClick={() => rightButtonFunc(true)}>
+                                <img src={rightButtonIcon} alt="" />
+                                <span className="ms-2">{rightButtonText}</span>
+                            </Styled.NusBtnPattern>
                         }
                     </div>
                 </TabList>
@@ -53,7 +71,11 @@ export const CustomGridTabs = (props) => {
                 <TabPanel>
                     {
                         cartEnable ?
-                        <CustomCart /> :
+                        <CustomCart 
+                            index={index}
+                            cartData={cartData}
+                            filteredData={filteredData}
+                        /> :
                     
                     <GridLayout
                         className="layout"
@@ -100,7 +122,6 @@ const useStyle = makeStyles({
     },
     tablist: {
         display: "flex",
-        justifyContent: "space-between",
         alignItems: "center",
         backgroundColor: "#fff",
         borderRadius: '100px',

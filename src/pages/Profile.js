@@ -14,7 +14,7 @@ import * as Styled from "../styledComponents/styled";
 import { makeStyles } from '@material-ui/core';
 import { Link, useNavigate } from 'react-router-dom';
 import { CustomCardComponent } from '../components/CustomCardComponent';
-import {CustomGridTabs} from "../components/CustomGridTabs"
+import {CustomTabs} from "../components/CustomTabs"
 import Avatar from '../components/Avatar';
 
 
@@ -43,7 +43,7 @@ export const Profile = () => {
                 <div>
                     <Avatar />
                 </div>
-                <CustomGridTabs
+                <CustomTabs
                     rightButtonFunc={goToCreateNewProject}
                     rightButtonIcon={add}
                     rightButtonText="Yeni Proyekt"

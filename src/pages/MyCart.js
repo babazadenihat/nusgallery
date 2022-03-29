@@ -27,7 +27,7 @@ const MyCart = () => {
             {t("title1")}
           </h2> */}
           <CustomGridTabs
-            onOff={true}
+            tabEnable={true}
             cartEnable={true}
             tabLabel={{ tab1: "Hamısı", tab2: "İştirakçıyam" }}
           />

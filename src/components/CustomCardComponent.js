@@ -10,7 +10,7 @@ import paint2 from "../images/paint2.png";
 import userPhoto from "../images/user-photo.png";
 import heart from "../images/icons/heart.svg";
 import add from "../images/icons/add.svg";
-import * as Styled from "../styledComponents/styled";
+import { CardItemBox, DraggableBox } from "../styledComponents/styled";
 import { Button, makeStyles } from '@material-ui/core';
 import {IntlProvider, FormattedMessage, FormattedNumber} from 'react-intl'
 
@@ -21,7 +21,7 @@ export const CustomCardComponent = (props) => {
     return (
         <>
             <Card style={style}>
-                <Styled.DraggableBox />
+                <DraggableBox />
                 <Button onClick={() => paintingModal(true)} className={classes.noStyleBtnLabel}>
                     <div className="cardImgCover"><Card.Img variant="top" src={paint1} /></div>
                     <Card.Body>
@@ -47,10 +47,10 @@ export const CustomCardComponent = (props) => {
                 </ListGroup>
                 <ListGroup className="list-group-flush">
                     <ListGroupItem className="d-flex justify-content-between align-items-baseline">
-                        <Styled.CardItemBox>
+                        <CardItemBox>
                             <img src={heart} alt="" />
                             <span className='ms-2'>24</span>
-                        </Styled.CardItemBox>
+                        </CardItemBox>
                         <div className="">Bitmə tarixi: 2g, 11s</div>
                     </ListGroupItem>
                 </ListGroup>

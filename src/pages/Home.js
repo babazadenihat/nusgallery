@@ -35,7 +35,7 @@ export const Home = () => {
           rightButtonIcon={filter}
           rightButtonText="Filter"
           paintingModal={setModalShow2}
-          onOff={true}
+          tabEnable={false}
           tabLabel={{tab1: "Onlayn", tab2: "Oflayn"}}
         />
         <Box sx={{ textAlign: "center" }}><Styled.MoreBtn>Daha çox</Styled.MoreBtn></Box>
