@@ -12,6 +12,7 @@ import {
   } from "react-router-dom";
 import NewProject from './pages/NewProject';
 import MyCart from './pages/MyCart';
+import Blog from './pages/Blog';
 
 export const Routez = () => {
     return (
@@ -24,6 +25,7 @@ export const Routez = () => {
                     <Route path="/register" element={<Register/>}></Route>
                     <Route path="/newproject" element={<NewProject/>}></Route>
                     <Route path="/mycart" element={<MyCart/>}></Route>
+                    <Route path="/blog" element={<Blog/>}></Route>
                 </Routes>
             </Router>
             <Footer/>

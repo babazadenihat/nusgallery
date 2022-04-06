@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container } from 'react-bootstrap'
-import { CustomGridTabs } from '../components/CustomGridTabs';
+import { CustomTabs } from '../components/CustomTabs';
 import { title } from '../translations';
 import { Trans, useTranslation } from 'react-i18next';
 // import '../i18next';
@@ -26,7 +26,7 @@ const MyCart = () => {
             ></Trans>
             {t("title1")}
           </h2> */}
-          <CustomGridTabs
+          <CustomTabs
             tabEnable={true}
             cartEnable={true}
             tabLabel={{ tab1: "Hamısı", tab2: "İştirakçıyam" }}

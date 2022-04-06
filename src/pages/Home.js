@@ -2,10 +2,10 @@ import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 import { Button, Container, Modal, FormCheck, Form, FormGroup, FormLabel } from 'react-bootstrap'
 import * as Styled from "../styledComponents/styled";
-import { CustomGridTabs } from "../components/CustomGridTabs"
+import { CustomTabs } from "../components/CustomTabs"
 import { Box, Checkbox, Grid } from '@material-ui/core';
 import filter from "../images/icons/filter.svg"
-import { Close } from '@material-ui/icons';
+import { Close, ArrowBackIos, ArrowForwardIos } from '@material-ui/icons';
 import * as Yup from "yup"
 import { useFormik } from 'formik';
 import { CustomBlogBox } from '../components/CustomBlogBox';
@@ -30,7 +30,7 @@ export const Home = () => {
     <div>
       <Container className={classes.pageContainer}>
         <h2 className={`${classes.pageTitle} mb-4`}>Gallery</h2>
-        <CustomGridTabs
+        <CustomTabs
           rightButtonFunc={setModalShow}
           rightButtonIcon={filter}
           rightButtonText="Filter"
@@ -189,7 +189,7 @@ function PaintingModal(props) {
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
-      dialogClassName={classes.modal}
+      dialogClassName={classes.paintModalContent}
     >
       {/* <Modal.Header>
         <button onClick={props.onHide} className={classes.xBtn}><Close /></button>
@@ -197,62 +197,27 @@ function PaintingModal(props) {
           Filter
         </Modal.Title>
       </Modal.Header> */}
-      <Form onSubmit={handleSubmit}>
-        <Modal.Body>
-          <div className='d-flex justify-content-between'>
+      <Modal.Body className='p-0'>
+        <div className='d-flex'>
+          <div className={`d-flex justify-content-between ${classes.leftSide}`}>
             <button onClick={props.onHide} className={classes.xBtn}><Close /></button>
-            <Styled.CardItemBox>
-                  <img src={heart} alt="" />
-                  <span className='ms-2'>24</span>
-              </Styled.CardItemBox>
-          </div>
-          <div className='d-flex mt-4'>
-            <Box>
-              <FormGroup controlId="7-25">
-                <FormCheck type="checkbox" label="7-25" />
-              </FormGroup>
-              <FormGroup controlId="50-100">
-                <FormCheck type="checkbox" label="50-100" />
-              </FormGroup>
-            </Box>
-          </div>
-          <hr />
-          <h4>Kateqoriya</h4>
-          <div className='d-flex'>
-            <div>
-              <FormGroup controlId="naturmort">
-                <FormCheck type="checkbox" label="naturmort" />
-              </FormGroup>
-              <FormGroup controlId="landscape">
-                <FormCheck type="checkbox" label="landscape" />
-              </FormGroup>
+            <div className={classes.purchaseNow}>
+              Indi al | 500 m
             </div>
-            <Box className='ms-5'>
-              <FormGroup controlId="portret">
-                <FormCheck type="checkbox" label="portret" />
-              </FormGroup>
-              <FormGroup controlId="abstract">
-                <FormCheck type="checkbox" label="abstract" />
-              </FormGroup>
-            </Box>
-            <Box className='ms-5'>
-              <FormGroup controlId="other">
-                <FormCheck type="checkbox" label="other" />
-              </FormGroup>
-            </Box>
+            <Styled.CardItemBox>
+              <img src={heart} alt="" />
+              <span className='ms-2'>24</span>
+            </Styled.CardItemBox>
           </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Styled.NusBtnPattern
-            type="button"
-            className='nusTransparentBtn'
-            onClick={props.onHide}
-          >Axtar</Styled.NusBtnPattern>
-          <Styled.NusBtnPattern
-            type="button"
-            className='nusBlackBtn'
-          >Axtar</Styled.NusBtnPattern>
-        </Modal.Footer>
+          <div className={`d-flex ${classes.rightSide}`}>
+            <div className={classes.controlPaper}>
+              <button className={classes.controlBtn}><ArrowBackIos /> Əvvəlki</button>
+              <button className={classes.controlBtn}>Növbəti <ArrowForwardIos /></button>
+            </div>
+          </div>
+        </div>
+      </Modal.Body>
+      <Form onSubmit={handleSubmit}>
       </Form>
     </Modal>
   );
@@ -285,5 +250,37 @@ const useStyle = makeStyles((theme) => ({
   },
   paper: {
     marginBottom: "30px"
+  },
+  paintModalContent: {
+    maxWidth: "896px",
+    "& .modal-content": {
+      borderRadius: "21px",
+    }
+  },
+  purchaseNow: {
+    border: "1px solid black",
+    borderRadius: "90px",
+    padding: "6px 15px"
+  },
+  controlBtn: {
+    border: 0,
+    background: "transparent"
+  },
+  controlPaper: {
+    display: "flex",
+    justifyContent: "space-between",
+    width: "100%",
+    borderRadius: "21px"
+  },
+  leftSide: {
+    borderRadius: "21px",
+    width: "50%",
+    padding: "42px 30px"
+  },
+  rightSide: {
+    backgroundColor: "#F2EFE8",
+    width: "50%",
+    borderRadius: "21px",
+    padding: "30px 41px 30px 65px"
   }
 }))
