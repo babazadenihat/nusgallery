@@ -11,6 +11,7 @@ import { useFormik } from 'formik';
 import { CustomBlogBox } from '../components/CustomBlogBox';
 import { Link } from 'react-router-dom';
 import heart from "../images/icons/heart.svg";
+import clsx from 'clsx';
 
 export const Home = () => {
   const classes = useStyle();
@@ -210,9 +211,9 @@ function PaintingModal(props) {
             </Styled.CardItemBox>
           </div>
           <div className={`d-flex ${classes.rightSide}`}>
-            <div className={classes.controlPaper}>
-              <button className={classes.controlBtn}><ArrowBackIos /> Əvvəlki</button>
-              <button className={classes.controlBtn}>Növbəti <ArrowForwardIos /></button>
+            <div className={clsx(classes.controlPaper)}>
+              <button className={clsx(classes.font, classes.controlBtn)}><ArrowBackIos fontSize='small'/> Əvvəlki</button>
+              <button className={clsx(classes.font, classes.controlBtn)}>Növbəti <ArrowForwardIos fontSize='small' /></button>
             </div>
           </div>
         </div>
@@ -226,6 +227,9 @@ function PaintingModal(props) {
 
 
 const useStyle = makeStyles((theme) => ({
+  font : {
+    fontFamily: "DM Sans"
+  },
   pageContainer: {
     padding: "60px 0",
   },
@@ -264,13 +268,18 @@ const useStyle = makeStyles((theme) => ({
   },
   controlBtn: {
     border: 0,
-    background: "transparent"
+    background: "transparent",
+    fontWeight: "700",
   },
   controlPaper: {
     display: "flex",
     justifyContent: "space-between",
     width: "100%",
-    borderRadius: "21px"
+    background: "#fff",
+    borderRadius: "90px",
+    fontSize: "12px",
+    height: "32px",
+    padding: "0 15px"
   },
   leftSide: {
     borderRadius: "21px",
