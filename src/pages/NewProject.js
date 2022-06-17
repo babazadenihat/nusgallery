@@ -223,7 +223,7 @@ const useStyle = makeStyles({
       width: "160px !important"
     },
     btnCustomProps1: {
-      width: "95px !important"
+      width: "115px !important"
     }
 })
 

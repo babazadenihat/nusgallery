@@ -12,22 +12,42 @@ import heart from "../images/icons/heart.svg";
 import add from "../images/icons/add.svg";
 import { CardItemBox, DraggableBox } from "../styledComponents/styled";
 import { Button, makeStyles } from '@material-ui/core';
-import {IntlProvider, FormattedMessage, FormattedNumber} from 'react-intl'
+import { IntlProvider, FormattedMessage, FormattedNumber } from 'react-intl'
 
 
 export const CustomCardComponent = (props) => {
     const classes = useStyle();
-    const { style,paintingModal } =  props;
+    const {
+        style,
+        paintingModal,
+        handleDrag,
+        handleDrop,
+        paintName,
+        keyProp,
+        id,
+        order
+    } = props;
+
+    console.log(keyProp)
     return (
         <>
-            <Card style={style}>
+            <Card
+                style={style}
+                draggable={true}
+                onDragStart={handleDrag}
+                onDragOver={(e => e.preventDefault())}
+                onDrop={handleDrop}
+                id={id}
+                key={keyProp}
+            >
+
                 <DraggableBox />
                 <Button onClick={() => paintingModal(true)} className={classes.noStyleBtnLabel}>
                     <div className="cardImgCover"><Card.Img variant="top" src={paint1} /></div>
                     <Card.Body>
                         <Card.Title className="d-flex align-items-center">
                             <img src={userPhoto} alt="" className="cardSmallImg" />
-                            <span className="ms-2">Tahir Salahov</span>
+                            <span className="ms-2">{paintName}</span>
                         </Card.Title>
                         <Card.Text>
                             “No More Voices”

@@ -13,6 +13,8 @@ import {
 import NewProject from './pages/NewProject';
 import MyCart from './pages/MyCart';
 import Blog from './pages/Blog';
+import Notification from './pages/Notification';
+import BlogDetails from './pages/BlogDetails';
 
 export const Routez = () => {
     return (
@@ -26,6 +28,8 @@ export const Routez = () => {
                     <Route path="/newproject" element={<NewProject/>}></Route>
                     <Route path="/mycart" element={<MyCart/>}></Route>
                     <Route path="/blog" element={<Blog/>}></Route>
+                    <Route path="/blog-details" element={<BlogDetails/>}></Route>
+                    <Route path="/notification" element={<Notification/>}></Route>
                 </Routes>
             </Router>
             <Footer/>

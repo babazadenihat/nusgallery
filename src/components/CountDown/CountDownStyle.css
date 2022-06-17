@@ -1,0 +1,23 @@
+.countdown-timer {
+    /* height: 50px; */
+    display: grid;
+    grid-template-columns: 30px 30px 30px 30px 30px 30px 30px;
+    font-family: "DM Sans";
+    font-size: 12px;
+    font-weight: 600;
+}
+.countdown-timer-label {
+    display: grid;
+    grid-template-columns: 60px 60px 60px 60px;
+    font-family: "DM Sans";
+    font-size: 10px ;
+}
+/* 
+.countdown-timer span {
+    margin-left: 5px;
+    margin-right: 5px;
+} */
+
+.two-numbers {
+    width: 2ch;
+}

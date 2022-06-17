@@ -27,4 +27,5 @@ i18next.use(I18nextBrowserLanguageDetector).use(initReactI18next).init({
     }
 })
 
+// i18next.on("languageChanged", (lng) => )
 export default i18next;

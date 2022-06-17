@@ -11,7 +11,14 @@ import { useFormik } from 'formik';
 import { CustomBlogBox } from '../components/CustomBlogBox';
 import { Link } from 'react-router-dom';
 import heart from "../images/icons/heart.svg";
+import userPhoto from "../images/user-photo.png";
+import auxtionIcon from "../images/icons/auxtionIcon.svg";
+import crownIcon from "../images/icons/crownIcon.svg";
+import basket from "../images/icons/basket.svg"
 import clsx from 'clsx';
+import { TextField } from "@material-ui/core"
+import Countdown from '../components/CountDown/CountDown';
+import { AnimatedDiv } from '../layouts/layout';
 
 export const Home = () => {
   const classes = useStyle();
@@ -26,9 +33,18 @@ export const Home = () => {
   const [modalShow, setModalShow] = React.useState(false);
   const [modalShow2, setModalShow2] = React.useState(false);
 
+  const data = [
+    {
+
+    }
+  ]
+
 
   return (
     <div>
+      <div>
+        <AnimatedDiv/>
+      </div>
       <Container className={classes.pageContainer}>
         <h2 className={`${classes.pageTitle} mb-4`}>Gallery</h2>
         <CustomTabs
@@ -37,9 +53,9 @@ export const Home = () => {
           rightButtonText="Filter"
           paintingModal={setModalShow2}
           tabEnable={false}
-          tabLabel={{tab1: "Onlayn", tab2: "Oflayn"}}
+          tabLabel={{ tab1: "Onlayn", tab2: "Oflayn" }}
         />
-        <Box sx={{ textAlign: "center" }}><Styled.MoreBtn>Daha çox</Styled.MoreBtn></Box>
+        <Box sx={{ textAlign: "center", marginTop: "42px" }}><Styled.MoreBtn>Daha çox</Styled.MoreBtn></Box>
         <FilterModal
           show={modalShow}
           onHide={() => setModalShow(false)}
@@ -98,6 +114,8 @@ function FilterModal(props) {
     handleBlur,
     handleSubmit
   } = props;
+
+
   return (
     <Modal
       {...props}
@@ -178,12 +196,37 @@ function FilterModal(props) {
 
 
 function PaintingModal(props) {
+  const [price, setPrice] = React.useState(null)
   const classes = useStyle();
   const {
     handleChange,
     handleBlur,
     handleSubmit
   } = props;
+
+
+  const handlePriceBySign = (sign) => {
+    if (sign === "+") {
+      setPrice(`${Number(price) + 50}M`)
+    } else if (sign === "-") {
+      if (price <= 50) return;
+      setPrice(price - 50)
+    }
+  }
+
+  const handlePriceByInput = (priceValue) => {
+    // var regex=/^[0-9]+$/;
+    // if (priceValue.match(regex)) {
+    console.log(isNaN(parseInt(priceValue)))
+    // }
+    // if (isNaN(parseInt(priceValue)) === true) return;
+    setPrice(`${priceValue}M`)
+    // if(typeof (+priceValue) === "number") {
+    //   console.log(priceValue)
+
+    // }
+
+  }
   return (
     <Modal
       {...props}
@@ -199,7 +242,7 @@ function PaintingModal(props) {
         </Modal.Title>
       </Modal.Header> */}
       <Modal.Body className='p-0'>
-        <div className='d-flex'>
+        <div className='d-flex align-items-center'>
           <div className={`d-flex justify-content-between ${classes.leftSide}`}>
             <button onClick={props.onHide} className={classes.xBtn}><Close /></button>
             <div className={classes.purchaseNow}>
@@ -210,10 +253,76 @@ function PaintingModal(props) {
               <span className='ms-2'>24</span>
             </Styled.CardItemBox>
           </div>
-          <div className={`d-flex ${classes.rightSide}`}>
+          <div className={`d-flex flex-column ${classes.rightSide}`}>
             <div className={clsx(classes.controlPaper)}>
-              <button className={clsx(classes.font, classes.controlBtn)}><ArrowBackIos fontSize='small'/> Əvvəlki</button>
-              <button className={clsx(classes.font, classes.controlBtn)}>Növbəti <ArrowForwardIos fontSize='small' /></button>
+              <button className={clsx(classes.fontSansDm, classes.controlBtn)}><ArrowBackIos style={{width: "15px"}} /> Əvvəlki</button>
+              <button className={clsx(classes.fontSansDm, classes.controlBtn)}>Növbəti <ArrowForwardIos style={{width: "15px"}} /></button>
+            </div>
+            <div className='mt-5'>
+              <div className='d-flex align-items-center justify-content-between'>
+                <div className='d-flex align-items-center'>
+                  <div className={clsx(classes.authorLabel, classes.fontPoppins)}>Müəllif</div>
+                  <div className='d-flex align-items-center ms-3'>
+                    <img src={userPhoto} alt="" className="cardSmallImg" />
+                    <span className={`${clsx(classes.fontPoppins, classes.fontWeight600, classes.popupPaintAuthor)} ms-2`}>Tahir Salahov</span>
+                  </div>
+                </div>
+                <div className={clsx(classes.categoryLabel)}>
+                  <span>#abstrakt</span>
+                </div>
+              </div>
+              <div className={`mt-4 mb-3 ${clsx(classes.popupPaintTitle, classes.fontPoppins)}`}>“Mark Quinn - Claudia as Flora”</div>
+              <div className={clsx(classes.sectionBorder)}>
+                <div className='d-flex justify-content-between align-items-center'>
+                  <div className='d-flex align-items-center'><img src={auxtionIcon} />
+                    <span className={`ms-2 d-flex align-items-center ${clsx(classes.midText, classes.fontPoppins, classes.fontWeight600)}`}>Təklif sayı</span></div>
+                  <div className={clsx(classes.midText, classes.fontPoppins, classes.fontWeight600)}>19</div>
+                </div>
+                <div className='d-flex justify-content-between align-items-center mt-2'>
+                  <div className='d-flex align-items-center'><img src={crownIcon} />
+                    <span className={`ms-2 d-flex align-items-center ${clsx(classes.midText, classes.fontPoppins, classes.fontWeight600)}`}>Cari təklif</span></div>
+                  <div className={clsx(classes.midText, classes.fontPoppins, classes.fontWeight600)}>240 M</div>
+                </div>
+              </div>
+              <div>
+                <div className='d-flex justify-content-between align-items-center mt-4'>
+                  <div className='d-flex align-items-center'>
+                    <span className={`d-flex align-items-center ${clsx(classes.midText2, classes.fontPoppins)}`}>Ölçü</span></div>
+                  <div className={clsx(classes.midText3, classes.fontPoppins)}>60x80 cm</div>
+                </div>
+                <div className='d-flex justify-content-between align-items-center mt-2'>
+                  <div className='d-flex align-items-center'>
+                    <span className={`d-flex align-items-center ${clsx(classes.midText2, classes.fontPoppins)}`}>Boya növü</span></div>
+                  <div className={clsx(classes.midText3, classes.fontPoppins)}>Akvarel</div>
+                </div>
+                <div className='mt-4'>
+                  <h6 className={clsx(classes.fontPoppins, classes.fontWeight600)}>Bitmə vaxtı</h6>
+                  <Countdown countdownTimestampMs={1655300101000} />
+                </div>
+                <div className='d-flex align-items-center justify-content-between mt-4'>
+                    <div>
+                      <button className={classes.basket}>
+                        <img src={basket} alt="basket" width="100%" />
+                      </button>
+                    </div>
+                  {/* <div className={clsx(classes.numberInputContainer)}>
+                    <div>
+                      <span>M</span>
+                      <input type="text" className={clsx(classes.priceInput)} value={price} onChange={(e) => handlePriceByInput(e.target.value)} />
+                    </div>
+                    <div className={clsx(classes.inputControlBtn)}>
+                      <button onClick={() => handlePriceBySign("+")}>+</button>
+                      <button onClick={() => handlePriceBySign("-")}>-</button>
+                    </div>
+                  </div> */}
+                  <div className={classes.offerBtn}>
+                    <Styled.NusBtnPattern
+                      type="button"
+                      className='nusBlackBtn'
+                    >Təklif ver</Styled.NusBtnPattern>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -227,8 +336,14 @@ function PaintingModal(props) {
 
 
 const useStyle = makeStyles((theme) => ({
-  font : {
+  fontPoppins: {
     fontFamily: "DM Sans"
+  },
+  fontSansDm: {
+    fontFamily: "DM Sans"
+  },
+  fontWeight600: {
+    fontWeight: "600"
   },
   pageContainer: {
     padding: "60px 0",
@@ -290,6 +405,64 @@ const useStyle = makeStyles((theme) => ({
     backgroundColor: "#F2EFE8",
     width: "50%",
     borderRadius: "21px",
-    padding: "30px 41px 30px 65px"
+    padding: "30px 41px 30px 65px",
+  },
+  categoryLabel: {
+    backgroundColor: "#BCEDBF",
+    padding: "5px",
+    borderRadius: "12px"
+  },
+  popupPaintAuthor: {
+    fontSize: "15px"
+  },
+  popupPaintTitle: {
+    fontStyle: "italic",
+    color: "#1D2124"
+  },
+  authorLabel: {
+    fontSize: "11px"
+  },
+  midText: {
+
+  },
+  midText2: {
+    fontSize: "12px",
+    color: "#1D2124"
+  },
+  midText3: {
+    fontSize: "12px",
+    color: "#73716E"
+  },
+  sectionBorder: {
+    borderBottom: "1px solid #D9D6C3",
+    paddingBottom: "18px"
+  },
+  // custom input styles
+  numberInputContainer: {
+    position: "relative",
+    background: "white",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "155px",
+    borderRadius: " 90px",
+    padding: "5px 0"
+  },
+  inputControlBtn: {
+    position: "absolute",
+    right: "2px"
+  },
+  priceInput: {
+    width: "30%"
+  },
+  basket: {
+    border: "1px solid black",
+    borderRadius: "50px",
+    width: "32px",
+    height: "32px",
+    backgroundColor: "transparent"
+  },
+  offerBtn: {
+    width: "155px"
   }
 }))

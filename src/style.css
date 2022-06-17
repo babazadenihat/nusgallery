@@ -8,290 +8,367 @@
     font-weight: normal;
     font-style: normal;
 } */
-body, html {
-    background: rgba(242, 239, 232, 1);
-    font-family: DM Sans;
+body,
+html {
+  background: rgba(242, 239, 232, 1);
+  font-family: DM Sans;
 }
+
 a {
   text-decoration: none;
 }
-p, h1, h2, h3, h4, h5 , h6 {
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin: 0
 }
-a:hover {
-  color: unset !important;
-}
+
 
 .nusBlackBtn {
   color: #fff;
   background-color: #1D2124;
 }
+
 .nusTransparentBtn {
   color: #1D2124;
   background-color: transparent;
 }
+
 .nusWhiteBtn {
   color: #1D2124;
   background-color: #fff;
   border: 0
 }
+
 .layout {
-    position: relative;
-    transition: height 200ms ease 0s;
-    height: 1000px;
+  position: relative;
+  transition: height 200ms ease 0s;
+  height: 1000px;
 }
+
 .cardSmallImg {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
 }
+
 .jis-manat {
-    font-family: 'JISAZNBold';
+  font-family: 'JISAZNBold';
 }
+
 .cardImgCover {
-    padding: 18px 68px;
-    height: 250px;
+  padding: 18px 68px;
+  height: 250px;
 }
+
+.animatedDivContainer {
+  background-color: #73716E;
+  position: relative;
+  height: 630px;
+  transition: .4s all ease-in-out;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* animation: animatedImg duration timing-function delay iteration-count direction fill-mode; */
+}
+.animatedDivContainer:hover .animatedImg{
+  transform: translate(12px , 12px);
+}
+/* @keyframes identifier {
+  
+} */
+.animatedImg1 {
+  left: 50px;
+  top: 50px
+}
+.animatedImg2 {
+  right: 500px;
+  top: 30px
+}
+.animatedImg3 {
+  right: 50px;
+  top: 70px
+}
+.animatedImg4 {
+  left: 0;
+  top: 330px
+}
+.animatedImg {
+  position: absolute;
+  transition: .7s all ease-in-out
+
+}
+
+
 
 
 .react-grid-layout {
-    position: relative;
-    transition: height 200ms ease;
-  }
-  .react-grid-item {
-    transition: all 200ms ease;
-    transition-property: left, top;
-    /* height: 470px !important; */
-  }
-  .react-grid-item img {
-    pointer-events: none;
-    user-select: none;  
-  }
-  .react-grid-item.cssTransforms {
-    transition-property: transform;
-  }
-  .react-grid-item.resizing {
-    z-index: 1;
-    will-change: width, height;
-  }
-  
-  .react-grid-item.react-draggable-dragging {
-    transition: none;
-    z-index: 3;
-    will-change: transform;
-  }
-  
-  .react-grid-item.dropping {
-    visibility: hidden;
-  }
-  
-  .react-grid-item.react-grid-placeholder {
-    background: red;
-    opacity: 0.2;
-    transition-duration: 100ms;
-    z-index: 2;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -o-user-select: none;
-    user-select: none;
-  }
-  .react-resizable {
-      /* height:470px !important */
-  }
-  .react-grid-item > .react-resizable-handle {
-    position: absolute;
-    width: 20px;
-    height: 470px;
-  }
-  
-  .react-grid-item > .react-resizable-handle::after {
-    content: "";
-    position: absolute;
-    right: 3px;
-    bottom: 3px;
-    width: 5px;
-    height: 5px;
-    border-right: 2px solid rgba(0, 0, 0, 0.4);
-    border-bottom: 2px solid rgba(0, 0, 0, 0.4);
-  }
-  
-  .react-resizable-hide > .react-resizable-handle {
-    display: none;
-  }
-  
-  .react-grid-item > .react-resizable-handle.react-resizable-handle-sw {
-    bottom: 0;
-    left: 0;
-    cursor: sw-resize;
-    transform: rotate(90deg);
-  }
-  .react-grid-item > .react-resizable-handle.react-resizable-handle-se {
-    bottom: 0;
-    right: 0;
-    cursor: se-resize;
-  }
-  .react-grid-item > .react-resizable-handle.react-resizable-handle-nw {
-    top: 0;
-    left: 0;
-    cursor: nw-resize;
-    transform: rotate(180deg);
-  }
-  .react-grid-item > .react-resizable-handle.react-resizable-handle-ne {
-    top: 0;
-    right: 0;
-    cursor: ne-resize;
-    transform: rotate(270deg);
-  }
-  .react-grid-item > .react-resizable-handle.react-resizable-handle-w,
-  .react-grid-item > .react-resizable-handle.react-resizable-handle-e {
-    top: 50%;
-    margin-top: -10px;
-    cursor: ew-resize;
-  }
-  .react-grid-item > .react-resizable-handle.react-resizable-handle-w {
-    left: 0;
-    transform: rotate(135deg);
-  }
-  .react-grid-item > .react-resizable-handle.react-resizable-handle-e {
-    right: 0;
-    transform: rotate(315deg);
-  }
-  .react-grid-item > .react-resizable-handle.react-resizable-handle-n,
-  .react-grid-item > .react-resizable-handle.react-resizable-handle-s {
-    left: 50%;
-    margin-left: -10px;
-    cursor: ns-resize;
-  }
-  .react-grid-item > .react-resizable-handle.react-resizable-handle-n {
-    top: 0;
-    transform: rotate(225deg);
-  }
-  .react-grid-item > .react-resizable-handle.react-resizable-handle-s {
-    bottom: 0;
-    transform: rotate(45deg);
-  }
+  position: relative;
+  transition: height 200ms ease;
+}
 
-  .modal {
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
-  }
-  .modal-footer {
-    border-top: 0;
-  }
+.react-grid-item {
+  transition: all 200ms ease;
+  transition-property: left, top;
+  /* height: 470px !important; */
+}
 
-  .form-check-input:checked {
-    background-color: #BCEDBF;
-    border: 0;
-  }
-  .form-check-input {
-    border: 1px solid #1D2124;
-  }
-  .form-check-input:focus {
-    box-shadow: unset;
-    border-color: unset;
-  }
-  .form-check-input:checked[type=checkbox] {
-    background: url("./images/icons/check1.svg");
-  }
+.react-grid-item img {
+  pointer-events: none;
+  user-select: none;
+}
+
+.react-grid-item.cssTransforms {
+  transition-property: transform;
+}
+
+.react-grid-item.resizing {
+  z-index: 1;
+  will-change: width, height;
+}
+
+.react-grid-item.react-draggable-dragging {
+  transition: none;
+  z-index: 3;
+  will-change: transform;
+}
+
+.react-grid-item.dropping {
+  visibility: hidden;
+}
+
+.react-grid-item.react-grid-placeholder {
+  background: red;
+  opacity: 0.2;
+  transition-duration: 100ms;
+  z-index: 2;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.react-resizable {
+  /* height:470px !important */
+}
+
+.react-grid-item>.react-resizable-handle {
+  position: absolute;
+  width: 20px;
+  height: 470px;
+}
+
+.react-grid-item>.react-resizable-handle::after {
+  content: "";
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
+  width: 5px;
+  height: 5px;
+  border-right: 2px solid rgba(0, 0, 0, 0.4);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.4);
+}
+
+.react-resizable-hide>.react-resizable-handle {
+  display: none;
+}
+
+.react-grid-item>.react-resizable-handle.react-resizable-handle-sw {
+  bottom: 0;
+  left: 0;
+  cursor: sw-resize;
+  transform: rotate(90deg);
+}
+
+.react-grid-item>.react-resizable-handle.react-resizable-handle-se {
+  bottom: 0;
+  right: 0;
+  cursor: se-resize;
+}
+
+.react-grid-item>.react-resizable-handle.react-resizable-handle-nw {
+  top: 0;
+  left: 0;
+  cursor: nw-resize;
+  transform: rotate(180deg);
+}
+
+.react-grid-item>.react-resizable-handle.react-resizable-handle-ne {
+  top: 0;
+  right: 0;
+  cursor: ne-resize;
+  transform: rotate(270deg);
+}
+
+.react-grid-item>.react-resizable-handle.react-resizable-handle-w,
+.react-grid-item>.react-resizable-handle.react-resizable-handle-e {
+  top: 50%;
+  margin-top: -10px;
+  cursor: ew-resize;
+}
+
+.react-grid-item>.react-resizable-handle.react-resizable-handle-w {
+  left: 0;
+  transform: rotate(135deg);
+}
+
+.react-grid-item>.react-resizable-handle.react-resizable-handle-e {
+  right: 0;
+  transform: rotate(315deg);
+}
+
+.react-grid-item>.react-resizable-handle.react-resizable-handle-n,
+.react-grid-item>.react-resizable-handle.react-resizable-handle-s {
+  left: 50%;
+  margin-left: -10px;
+  cursor: ns-resize;
+}
+
+.react-grid-item>.react-resizable-handle.react-resizable-handle-n {
+  top: 0;
+  transform: rotate(225deg);
+}
+
+.react-grid-item>.react-resizable-handle.react-resizable-handle-s {
+  bottom: 0;
+  transform: rotate(45deg);
+}
+
+.modal {
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+}
+
+.modal-footer {
+  border-top: 0;
+}
+
+.form-check-input:checked {
+  background-color: #BCEDBF;
+  border: 0;
+}
+
+.form-check-input {
+  border: 1px solid #1D2124;
+}
+
+.form-check-input:focus {
+  box-shadow: unset;
+  border-color: unset;
+}
+
+.form-check-input:checked[type=checkbox] {
+  background: url("./images/icons/check1.svg");
+}
 
 
-  .cat-checkbox .form-check-input:checked {
-    background-color: red;
-    border: 0;
-  }
-  .cat-checkbox .form-check-input {
-    border: 1px solid #1D2124;
-    border-radius: 50%;
-    background-color: transparent;
-  }
-  .cat-checkbox .form-check-input:focus {
-    box-shadow: unset;
-    border-color: unset;
-  }
-  .cat-checkbox .form-check-input:checked[type=checkbox] {
-    background: white;
-  }
-
-
-  .header-checkbox .form-check-input:checked {
+.cat-checkbox .form-check-input:checked {
   background-color: red;
-    border: 0;
-  }
-  .header-checkbox .form-check-input {
-    border: 1px solid #1D2124;
-    /* border-radius: 50%; */
-    background-color: transparent;
-  }
-  .header-checkbox .form-check-input:focus {
-    box-shadow: unset;
-    border-color: unset;
-  }
-  .header-checkbox .form-check-input:checked[type=checkbox] {
-    background: #BCEDBF;
-      background-image: url("./images/icons/switch-Ellipse.svg");
-      background-repeat: no-repeat;
-  }
+  border: 0;
+}
+
+.cat-checkbox .form-check-input {
+  border: 1px solid #1D2124;
+  border-radius: 50%;
+  background-color: transparent;
+}
+
+.cat-checkbox .form-check-input:focus {
+  box-shadow: unset;
+  border-color: unset;
+}
+
+.cat-checkbox .form-check-input:checked[type=checkbox] {
+  background: white;
+}
+
+
+.header-checkbox .form-check-input:checked {
+  background-color: red;
+  border: 0;
+}
+
+.header-checkbox .form-check-input {
+  border: 1px solid #1D2124;
+  /* border-radius: 50%; */
+  background-color: transparent;
+}
+
+.header-checkbox .form-check-input:focus {
+  box-shadow: unset;
+  border-color: unset;
+}
+
+.header-checkbox .form-check-input:checked[type=checkbox] {
+  background: #BCEDBF;
+  background-image: url("./images/icons/switch-Ellipse.svg");
+  background-repeat: no-repeat;
+}
 
 
 
-  .react-tabs {
-    -webkit-tap-highlight-color: transparent;
-  }
-  
-  .react-tabs__tab-list {
-    border-bottom: 1px solid #aaa;
-    margin: 0 0 10px;
-    padding: 0;
-  }
-  
-  .react-tabs__tab {
-    display: inline-block;
-    border: 1px solid black !important;
-    border-radius: 100px !important;
-    border-bottom: none;
-    bottom: -1px;
-    position: relative;
-    list-style: none;
-    padding: 6px 12px;
-    cursor: pointer;
-    margin-right: 10px;
-  }
-  
-  .react-tabs__tab--selected {
-    background: #BCEDBF !important;
-    border-color: #aaa;
-    color: black;
-    border-radius: 5px 5px 0 0;
-  }
-  
-  .react-tabs__tab--disabled {
-    color: GrayText;
-    cursor: default;
-  }
-  
-  .react-tabs__tab:focus {
-    box-shadow: unset !important;
-    border-color: unset !important;
-    outline: none !important;
-  }
-  
-  .react-tabs__tab:focus:after {
-    content: "";
-    position: absolute;
-    height: 5px;
-    left: -4px;
-    right: -4px;
-    bottom: -5px;
-    background: #fff;
-  }
-  
-  .react-tabs__tab-panel {
-    display: none;
-  }
-  
-  .react-tabs__tab-panel--selected {
-    display: block;
-  }
-  
+.react-tabs {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.react-tabs__tab-list {
+  border-bottom: 1px solid #aaa;
+  margin: 0 0 10px;
+  padding: 0;
+}
+
+.react-tabs__tab {
+  display: inline-block;
+  border: 1px solid black !important;
+  border-radius: 100px !important;
+  border-bottom: none;
+  bottom: -1px;
+  position: relative;
+  list-style: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.react-tabs__tab--selected {
+  background: #BCEDBF !important;
+  border-color: #aaa;
+  color: black;
+  border-radius: 5px 5px 0 0;
+}
+
+.react-tabs__tab--disabled {
+  color: GrayText;
+  cursor: default;
+}
+
+.react-tabs__tab:focus {
+  box-shadow: unset !important;
+  border-color: unset !important;
+  outline: none !important;
+}
+
+.react-tabs__tab:focus:after {
+  content: "";
+  position: absolute;
+  height: 5px;
+  left: -4px;
+  right: -4px;
+  bottom: -5px;
+  background: #fff;
+}
+
+.react-tabs__tab-panel {
+  display: none;
+}
+
+.react-tabs__tab-panel--selected {
+  display: block;
+}

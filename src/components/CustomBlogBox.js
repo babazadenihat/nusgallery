@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import date from "../images/icons/date.svg";
 import blogphoto1 from "../images/blog-photo-1.png";
 import { makeStyles } from '@material-ui/styles'
@@ -9,28 +10,34 @@ import heart from "../images/icons/heart.svg";
 
 export const CustomBlogBox = () => {
     const classes = useStyle();
+    const navigate = useNavigate();
+
+    const goToDetailsPage = () => {
+        navigate("/blog-details");
+    }
+
     return (
         <>
             <div>
-                <div><img src={blogphoto1}  className={(classes.blogImg)} alt="" /></div>
+                <div><img src={blogphoto1} className={(classes.blogImg)} alt="" /></div>
                 <div className='mt-4'>
-                    <Box sx={{display: "flex"}}>
-                        <CardItemBox>
+                    <Box sx={{ display: "flex" }}>
+                        <CardItemBox className={classes.cardItemBox}>
                             <img src={heart} alt="" />
-                            <span>24</span>
+                            <span className='ms-2'>24</span>
                         </CardItemBox>
-                        <CardItemBox className="ms-3">
+                        <CardItemBox className={`${classes.cardItemBox} ms-3`}>
                             <img src={date} alt="" />
-                            24 Okt 2021
+                            <span className='ms-2'>24 Okt 2021</span>
                         </CardItemBox>
                     </Box>
-                    <Box sx={{mt: 3}}>
+                    <Box sx={{ mt: 3 }}>
                         <p className={classes.blogP}>Meet all of the current artists</p>
                         <span className={classes.blogSpan}>Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
                             commodo consequat. Duis aute irure quis nostrud exercitation...
                         </span>
                     </Box>
-                    <Box sx={{textAlign: "left", mt: 4}}><MoreBtn>Ardını oxu</MoreBtn></Box>
+                    <Box sx={{ textAlign: "left", mt: 4 }}><MoreBtn onClick={() => goToDetailsPage()}>Ardını oxu</MoreBtn></Box>
                 </div>
             </div>
         </>
@@ -43,14 +50,17 @@ const useStyle = makeStyles({
         borderRadius: "18px",
         width: "100%"
     },
+    cardItemBox: {
+        color: "#1D2124"
+    },
     blogP: {
         fontSize: "20px",
         fontFamily: "Poppins",
-        fontWeight: "bold"
+        fontWeight: "bold",
+        color: "#1D2124"
     },
     blogSpan: {
         color: "#73716E",
         fontSize: "10px"
     }
-  })
-  
+})

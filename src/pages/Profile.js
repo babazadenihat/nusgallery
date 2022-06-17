@@ -14,7 +14,7 @@ import * as Styled from "../styledComponents/styled";
 import { makeStyles } from '@material-ui/core';
 import { Link, useNavigate } from 'react-router-dom';
 import { CustomCardComponent } from '../components/CustomCardComponent';
-import {CustomTabs} from "../components/CustomTabs"
+import { CustomTabs } from "../components/CustomTabs"
 import Avatar from '../components/Avatar';
 
 
@@ -37,23 +37,25 @@ export const Profile = () => {
 
     const classes = useStyle();
     return (
-        <>
+        <div className='mb-5'>
             {/* <Header/> */}
             <Container>
-                <div>
+                {/* <div>
                     <Avatar />
+                </div> */}
+                <div className='mt-3'>
+                    <CustomTabs
+                        rightButtonFunc={goToCreateNewProject}
+                        rightButtonIcon={add}
+                        rightButtonText="Yeni Proyekt"
+                    />
                 </div>
-                <CustomTabs
-                    rightButtonFunc={goToCreateNewProject}
-                    rightButtonIcon={add}
-                    rightButtonText="Yeni Proyekt"
-                />
             </Container>
 
 
 
             {/* <img src={tiger}   style={{ userDrag: "none", userSelect: "none", pointerEvents: "none", userDrag: "none"}}  alt="" /> */}
-        </>
+        </div>
     )
 }
 
