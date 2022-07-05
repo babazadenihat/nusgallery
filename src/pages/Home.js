@@ -16,11 +16,112 @@ import auxtionIcon from "../images/icons/auxtionIcon.svg";
 import crownIcon from "../images/icons/crownIcon.svg";
 import basket from "../images/icons/basket.svg"
 import clsx from 'clsx';
+import { useSelector } from "react-redux/es/exports"
 import { TextField } from "@material-ui/core"
 import Countdown from '../components/CountDown/CountDown';
 import { AnimatedDiv } from '../layouts/layout';
+import arrowDown from "../images/icons/arrow-down.svg";
+// import arrow from "../images/icons/arrow-down.svg";
+import jQuery from 'jquery';
+import CurrencyInput from 'react-currency-input-field';
+import { text } from '../translations/translation';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import {
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
+} from '@chakra-ui/react'
+
+jQuery("input[data-type='currency']").on({
+  keyup: function () {
+    formatCurrency(jQuery(this));
+  },
+  blur: function () {
+    formatCurrency(jQuery(this), "blur");
+  }
+});
+
+
+function formatNumber(n) {
+  // format number 1000000 to 1,234,567
+  return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+}
+
+
+function formatCurrency(input, blur) {
+  // appends $ to value, validates decimal side
+  // and puts cursor back in right position.
+
+  // get input value
+  var input_val = input.val();
+
+  // don't validate empty input
+  if (input_val === "") { return; }
+
+  // original length
+  var original_len = input_val.length;
+
+  // initial caret position 
+  var caret_pos = input.prop("selectionStart");
+
+  // check for decimal
+  if (input_val.indexOf(".") >= 0) {
+
+    // get position of first decimal
+    // this prevents multiple decimals from
+    // being entered
+    var decimal_pos = input_val.indexOf(".");
+
+    // split number by decimal point
+    var left_side = input_val.substring(0, decimal_pos);
+    var right_side = input_val.substring(decimal_pos);
+
+    // add commas to left side of number
+    left_side = formatNumber(left_side);
+
+    // validate right side
+    right_side = formatNumber(right_side);
+
+    // On blur make sure 2 numbers after decimal
+    if (blur === "blur") {
+      right_side += "00";
+    }
+
+    // Limit decimal to only 2 digits
+    right_side = right_side.substring(0, 2);
+
+    // join number by .
+    input_val = "$" + left_side + "." + right_side;
+
+  } else {
+    // no decimal entered
+    // add commas to number
+    // remove all non-digits
+    input_val = formatNumber(input_val);
+    input_val = "$" + input_val;
+
+    // final formatting
+    if (blur === "blur") {
+      input_val += ".00";
+    }
+  }
+
+  // send updated string to input
+  input.val(input_val);
+
+  // put caret back in the right position
+  var updated_len = input_val.length;
+  caret_pos = updated_len - original_len + caret_pos;
+  input[0].setSelectionRange(caret_pos, caret_pos);
+}
+
+
 
 export const Home = () => {
+  const selectedLang = useSelector((state) => state.language.translation)
   const classes = useStyle();
   const formik = useFormik({
     initialValues: {
@@ -32,21 +133,30 @@ export const Home = () => {
   })
   const [modalShow, setModalShow] = React.useState(false);
   const [modalShow2, setModalShow2] = React.useState(false);
+  const [blogData, setBlogData] = useState({})
 
-  const data = [
-    {
+  useEffect(() => {
+    fetch("http://142.93.97.123/api/v1.0/blogs/").then(
+      response => {
+        if (response) {
+          return response.json()
+        }
+      }
+    ).then(data => setBlogData(data)).catch((err) => console.log(err.message))
+  }, [])
 
-    }
-  ]
 
+  useEffect(() => {
+    console.log(window.document)
+  }, [])
 
   return (
     <div>
       <div>
-        <AnimatedDiv/>
+        <AnimatedDiv />
       </div>
       <Container className={classes.pageContainer}>
-        <h2 className={`${classes.pageTitle} mb-4`}>Gallery</h2>
+        <h2 className={`${classes.pageTitle} mb-4`}>{text.gallery[selectedLang]}</h2>
         <CustomTabs
           rightButtonFunc={setModalShow}
           rightButtonIcon={filter}
@@ -74,32 +184,15 @@ export const Home = () => {
       <Container fluid className={(classes.blog)}>
         <Container>
           <h2>Bloq</h2>
+          {console.log(blogData)}
           <Grid container spacing={2} className='mt-4'>
-            <Grid item md={4} className={classes.paper}>
-              <Link to="/">
-                <CustomBlogBox />
-              </Link>
-            </Grid>
-            <Grid item md={4} className={classes.paper}>
-              <Link to="/">
-                <CustomBlogBox />
-              </Link>
-            </Grid>
-            <Grid item md={4} className={classes.paper}>
-              <Link to="/">
-                <CustomBlogBox />
-              </Link>
-            </Grid>
-            {/* <Grid  item md={4} className={classes.paper}>    
-                      <Link to="/">
-                        <CustomBlogBox/>
-                      </Link>
-                    </Grid>
-                    <Grid item md={4} className={classes.paper}>    
-                      <Link to="/">
-                        <CustomBlogBox/>
-                      </Link>
-                    </Grid> */}
+            {
+              blogData && blogData?.results?.map(blog => (
+                <Grid item md={4} className={classes.paper}>
+                  <CustomBlogBox blog={blog} />
+                </Grid>
+              ))
+            }
           </Grid>
         </Container>
       </Container>
@@ -196,7 +289,7 @@ function FilterModal(props) {
 
 
 function PaintingModal(props) {
-  const [price, setPrice] = React.useState(null)
+  const [price, setPrice] = React.useState(50.0)
   const classes = useStyle();
   const {
     handleChange,
@@ -204,12 +297,14 @@ function PaintingModal(props) {
     handleSubmit
   } = props;
 
+  const format = (val) => val + `\u20BC`
+  const parse = (val) => val.replace(/^\m/, '')
 
   const handlePriceBySign = (sign) => {
     if (sign === "+") {
-      setPrice(`${Number(price) + 50}M`)
+      setPrice(`${Number(price) + 50}`)
     } else if (sign === "-") {
-      if (price <= 50) return;
+      if (price <= 0) return;
       setPrice(price - 50)
     }
   }
@@ -217,10 +312,10 @@ function PaintingModal(props) {
   const handlePriceByInput = (priceValue) => {
     // var regex=/^[0-9]+$/;
     // if (priceValue.match(regex)) {
-    console.log(isNaN(parseInt(priceValue)))
+    // console.log(isNaN(parseInt(priceValue)))
     // }
     // if (isNaN(parseInt(priceValue)) === true) return;
-    setPrice(`${priceValue}M`)
+    setPrice(priceValue)
     // if(typeof (+priceValue) === "number") {
     //   console.log(priceValue)
 
@@ -255,8 +350,8 @@ function PaintingModal(props) {
           </div>
           <div className={`d-flex flex-column ${classes.rightSide}`}>
             <div className={clsx(classes.controlPaper)}>
-              <button className={clsx(classes.fontSansDm, classes.controlBtn)}><ArrowBackIos style={{width: "15px"}} /> Əvvəlki</button>
-              <button className={clsx(classes.fontSansDm, classes.controlBtn)}>Növbəti <ArrowForwardIos style={{width: "15px"}} /></button>
+              <button className={clsx(classes.fontSansDm, classes.controlBtn)}><ArrowBackIos style={{ width: "15px" }} /> Əvvəlki</button>
+              <button className={clsx(classes.fontSansDm, classes.controlBtn)}>Növbəti <ArrowForwardIos style={{ width: "15px" }} /></button>
             </div>
             <div className='mt-5'>
               <div className='d-flex align-items-center justify-content-between'>
@@ -300,11 +395,11 @@ function PaintingModal(props) {
                   <Countdown countdownTimestampMs={1655300101000} />
                 </div>
                 <div className='d-flex align-items-center justify-content-between mt-4'>
-                    <div>
-                      <button className={classes.basket}>
-                        <img src={basket} alt="basket" width="100%" />
-                      </button>
-                    </div>
+                  <div>
+                    <button className={classes.basket}>
+                      <img src={basket} alt="basket" width="100%" />
+                    </button>
+                  </div>
                   {/* <div className={clsx(classes.numberInputContainer)}>
                     <div>
                       <span>M</span>
@@ -315,7 +410,49 @@ function PaintingModal(props) {
                       <button onClick={() => handlePriceBySign("-")}>-</button>
                     </div>
                   </div> */}
-                  <div className={classes.offerBtn}>
+                  {/* <input type="number" 
+                        onChange={(valueString) => setPrice( valueString)}
+                        value={format(price)}
+                        max={10000}
+                        min={0}
+                        step = {50}
+                  /> */}
+                  <NumberInput
+                  style={{position: "relative"}}
+                    onChange={(valueString) => setPrice(parse(valueString))}
+                    value={format(price)}
+                    max={10000}
+                    min={0}
+                    allowMouseWheel
+                    isRequired
+                    variant="unstyled"
+                    step={50}
+                  >
+                    <NumberInputField />
+                    {/* <NumberInputStepper >
+                      <NumberIncrementStepper  />
+                      <NumberDecrementStepper />
+                    </NumberInputStepper> */}
+                    <div className={clsx(classes.inputControlBtn)}>
+                      <button onClick={() => handlePriceBySign("+")}>+</button>
+                      <button onClick={() => handlePriceBySign("-")}>-</button>
+                    </div>
+                  </NumberInput>
+                  {/* <CurrencyInput
+                    suffix="&#8380;"
+                    // intlConfig={{ locale: 'az-AZ', currency: 'AZN' }}
+                    id="input-example"
+                    name="input-name"
+                    // placeholder="0$"
+                    defaultValue={1000}
+                    // step="2"
+                    value={price}
+                    className={classes.priceInput}
+                    // allowDecimals={true}
+                    decimalsLimit={2}
+                    onValueChange={(value, name) => setPrice(value)}
+                  /> */}
+                  <div className={`${classes.offerBtn} ms-2`}>
                     <Styled.NusBtnPattern
                       type="button"
                       className='nusBlackBtn'
@@ -333,6 +470,12 @@ function PaintingModal(props) {
   );
 }
 
+
+const getIcon = () => {
+  return (
+    <span><i class="fa-solid fa-manat-sign"></i></span>
+  )
+}
 
 
 const useStyle = makeStyles((theme) => ({
@@ -453,7 +596,13 @@ const useStyle = makeStyles((theme) => ({
     right: "2px"
   },
   priceInput: {
-    width: "30%"
+    width: "50%",
+    borderRadius: "22px",
+    border: 0,
+    outline: 0,
+    textAlign: "center",
+    padding: "8px 20px",
+    marginLeft: "10px"
   },
   basket: {
     border: "1px solid black",

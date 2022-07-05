@@ -7,22 +7,30 @@ import { CustomCardComponent } from './CustomCardComponent';
 import { Link } from "react-router-dom"
 import { Button, makeStyles } from '@material-ui/core';
 import CustomCart from './customCart';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import Sortable from "sortablejs"
+import { useEffect } from 'react';
 
 export const CustomTabs = (props) => {
     const [cartData, setcartData] = useState([])
     const [filteredData, setfilteredData] = useState([])
     const [index, setIndex] = useState(null)
     const [dragId, setDragId] = useState();
+    const [order, setOrder] = useState(0);
+    const [draggedOrder, setDraggedOrder] = useState(0);
+    const [droppedOrder, setDroppedOrder] = useState(0);
+
     const paintData = [
         {
             id: "1",
             name: "Tahir Salahov",
             title: "No More Voices",
-            bidCount: "24",
+            bidCount: "22",
             currentBid: "78",
             likes: "25",
             expiredDate: "1652483651000",
-            order: 1
+            order: 0
         },
         {
             id: "2",
@@ -32,7 +40,7 @@ export const CustomTabs = (props) => {
             currentBid: "43",
             likes: "75",
             expiredDate: "1652483651000",
-            order: 2
+            order: 1
         },
         {
             id: "3",
@@ -42,11 +50,106 @@ export const CustomTabs = (props) => {
             currentBid: "28",
             likes: "20",
             expiredDate: "1652483651000",
-            order: 3
+            order: 2
         },
     ]
 
     const [data, setData] = useState(paintData);
+
+    console.log(draggedOrder)
+
+    useEffect(() => {
+        fetch("http://142.93.97.123/api/v1.0/products/").then(
+            response => {
+                if(response) {
+                    response.json()
+                }
+            }
+        ).then(data => console.log(data)).catch((err) => console.log(err.message))
+    }, [])
+
+    useEffect(() => {
+        var el = document.getElementById('items');
+        // console.log(el)
+        var sortable = new Sortable(el, {
+            // handle: ".handle",
+            animation: 450,
+            easing: "cubic-bezier(1, 0, 0, 1)",
+            forceFallback: false,
+            sort: true,
+            onChange: function setNewOrder(e) {
+                const newIndex = e.newDraggableIndex
+                const oldIndex = e.oldDraggableIndex;
+                // let copied = data;
+                // copied[oldIndex].order = newIndex;
+                // copied[newIndex].order = oldIndex;
+
+
+
+                const cardOrderId = e.item.id
+
+
+                const findItem = data.find(item => item.order.toString() === cardOrderId)
+                const filteredArr = data.filter(item => item.order.toString() !== cardOrderId)
+
+                let copiedArr = [...filteredArr]
+                copiedArr.splice(newIndex, 0, findItem);
+
+                const mappedArr = copiedArr.map((x, i) => ({ ...x, order: i }))
+                // .sort((a, b) => a.order - b.order)
+                console.log('mappedArr', mappedArr);
+
+                // console.log('newIndex, oldIndex', oldIndex, newIndex, e.item.id)
+
+                // console.log(copied)
+                // const dragged = data?.find(d => d.order.toString() === cardOrderId);
+
+                // const dropped = data?.find(d => d.order.toString() === newIndex);
+
+                // setDraggedOrder(dropped.order)
+                // setDroppedOrder(dragged.order)
+                // console.log('dragged dropped', dragged?.name, dropped?.name);
+
+                // const newDataState = data.map((d, i) => {
+                //     if (d.order.toString() === cardOrderId) {
+                //         console.log('find d', d.order, cardOrderId, d);
+                //         d.order = Number(newIndex);
+                //     }
+                //     return d;
+                // // })
+                // console.log('newDataState', newDataState)
+                setData(mappedArr)
+            },
+            // onChange: (e) => setNewOrder(e),
+            swap: true,
+            // onEnd: (e) => setNewOrder(e.oldIndex)
+        })
+    }, [])
+
+    useEffect(() => {
+        console.log(data, "data")
+    }, [data])
+    console.log(data)
+    // console.log(order)
+    // function setNewOrder(e) {
+    //     console.log(e.oldIndex, e.newIndex)
+    //         const dragged = data?.find(d => d.order === e.oldIndex);
+    //         const dropped = data?.find(d => d.order === e.newIndex);
+
+    //         console.log(dragged?.order, dropped?.order);
+    //         const newDataState = data.map((d) => {
+    //             if (d.order === e.oldIndex) {
+    //                 console.log("works") // manafov order 1
+    //                 d.order = dropped?.order;
+    //             }
+    //             if (d.order === e.newIndex) { // saahov order 0
+    //                 d.order = dragged?.order;
+    //             }
+    //             return d;
+    //         });
+    //         console.log(newDataState)
+    //         setData(newDataState)
+    //     }
 
     const {
         rightButtonIcon,
@@ -64,6 +167,7 @@ export const CustomTabs = (props) => {
         width: '18rem', position: 'relative'
     }
 
+
     // useEffect(() => {
     //     fetchCartData();
     // }, [cartData])
@@ -77,36 +181,36 @@ export const CustomTabs = (props) => {
     //     setcartData() // set data
     // }
 
-    const handleDrag = (ev) => {
-        console.log(ev.currentTarget.id, "dragging");
-        setDragId(ev.currentTarget.id);
-    };
+    // const handleDrag = (ev) => {
+    //     console.log(ev.currentTarget.id, "dragging");
+    //     setDragId(ev.currentTarget.id);
+    // };
 
-    const handleDrop = (ev) => {
-        console.log(ev.currentTarget.id, "dropped")
-        const dragBox = data.find((d) => d.id === dragId);
-        const dropBox = data.find((d) => d.id === ev.currentTarget.id);
+    // const handleDrop = (ev) => {
+    //     console.log(ev.currentTarget.id, "dropped")
+    //     const dragBox = data.find((d) => d.id === dragId);
+    //     const dropBox = data.find((d) => d.id === ev.currentTarget.id);
 
-        const dragBoxOrder = dragBox.order;
-        const dropBoxOrder = dropBox.order;
+    //     const dragBoxOrder = dragBox.order;
+    //     const dropBoxOrder = dropBox.order;
 
-        const newDataState = data.map((d) => {
-            if (d.id === dragId) {
-                d.order = dropBoxOrder;
-            }
-            if (d.id === ev.currentTarget.id) {
-                d.order = dragBoxOrder;
-            }
-            return d;
-        });
+    //     const newDataState = data.map((d) => {
+    //         if (d.id === dragId) {
+    //             d.order = dropBoxOrder;
+    //         }
+    //         if (d.id === ev.currentTarget.id) {
+    //             d.order = dragBoxOrder;
+    //         }
+    //         return d;
+    //     });
 
-        setData(newDataState);
-    };
+    //     setData(newDataState);
+    // };
 
-    console.log(data)
 
     return (
         <>
+            {/* {JSON.stringify(data)} */}
             <Tabs>
                 <TabList className={[classes.tablist, !rightButtonFunc ? "justify-content-start" :
                     tabEnable && rightButtonFunc ? 'justify-content-between' :
@@ -139,21 +243,26 @@ export const CustomTabs = (props) => {
                         //         cartData={cartData}
                         //         filteredData={filteredData}
                         //     /> :
-                        <div className={classes.galleryGrid}>
-                            {console.log(paintData, "inner")}
-                            {
-                                data?.sort((a, b) => a.order - b.order)
-                                    .map(paint => (
+                        <div className='handle'>
+
+                            <div className={classes.galleryGrid} id="items">
+                                {console.log(data, "inner")}
+                                {
+
+                                    // .sort((a, b) => a.order - b.order)
+                                    data?.map((paint, index) => (
                                         <CustomCardComponent style={cardStyle} paintingModal={paintingModal}
-                                            handleDrag={handleDrag}
-                                            handleDrop={handleDrop}
+                                            // handleDrag={handleDrag}
+                                            // handleDrop={handleDrop}
+                                            bidCount={paint.bidCount}
                                             id={paint.id}
-                                            keyProp={paint.id}
+                                            keyProp={paint.order}
                                             paintName={paint.name}
                                             order={paint.order}
                                         />
                                     ))
-                            }
+                                }
+                            </div>
                         </div>
                     }
                 </TabPanel>
@@ -165,11 +274,17 @@ export const CustomTabs = (props) => {
 }
 
 
-const useStyle = makeStyles({
+const useStyle = makeStyles(theme => ({
     galleryGrid: {
         display: "grid",
         gridTemplateColumns: " 18rem 18rem 18rem",
         gridGap: "20px",
+        [theme.breakpoints.down("md")]: {
+            gridTemplateColumns: "1fr 1fr"
+        },
+        [theme.breakpoints.down("xs")]: {
+            gridTemplateColumns: "100%",
+        },
     },
     nusBtnStyle: {
         borderRadius: "100px",
@@ -190,7 +305,7 @@ const useStyle = makeStyles({
     //         backgroundColor: "red"
     //     }
     // }
-})
+}))
 
 
 

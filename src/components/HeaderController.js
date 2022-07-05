@@ -10,6 +10,9 @@ import { KeyboardArrowDownSharp } from "@material-ui/icons"
 import title_az from "../locales/az/az.json"
 import title_en from "../locales/en/en.json"
 import { LoggedUserField } from './LoggedUserField';
+import { useDispatch, useSelector } from 'react-redux/es/exports';
+import { changeLang } from '../redux/features/translation/translationSlice';
+
 
 const local = navigator.language;
 let lang;
@@ -29,23 +32,30 @@ else {
 
 let token = "ressam";
 
+
+
 function HeaderController() {
+    const dispatch = useDispatch();
     const [locale, setLocale] = useState("");
     const [messages, setMessages] = useState(lang);
     const classes = useStyle();
     const navigate = useNavigate()
     const [navLang, setLang] = React.useState('');
+    const language = useSelector((state) => state.language.translation);
 
+    console.log(language);
     function selectLanguage(e) {
         const newLocale = e.target.value;
-        setLocale(newLocale);
-        if (newLocale === 'en') {
-            setMessages(title_en);
-        } else {
-            if (newLocale === 'az') {
-                setMessages(title_az);
-            }
-        }
+        dispatch(changeLang(e.target.value))
+        setLocale(e.target.value);
+        // setLocale(newLocale);
+        // if (newLocale === 'en') {
+        //     setMessages(title_en);
+        // } else {
+        //     if (newLocale === 'az') {
+        //         setMessages(title_az);
+        //     }
+        // }
     }
 
 
@@ -65,16 +75,16 @@ function HeaderController() {
         <div className='d-flex align-items-center'>
             <FormControl>
                 <Select
-                    value={locale || "AZ"}
+                    value={locale || "az"}
                     onChange={selectLanguage}
                     className={classes.langInput}
                     inputProps={{ 'aria-label': 'Without label' }}
                     disableUnderline
                     IconComponent={KeyboardArrowDownSharp}
                 >
-                    <MenuItem value="AZ">AZ</MenuItem>
-                    <MenuItem value="EN">EN</MenuItem>
-                    <MenuItem value="RU">RU</MenuItem>
+                    <MenuItem value="az">AZ</MenuItem>
+                    <MenuItem value="en">EN</MenuItem>
+                    <MenuItem value="ru">RU</MenuItem>
                 </Select>
             </FormControl>
             {

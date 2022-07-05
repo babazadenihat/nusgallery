@@ -40,9 +40,9 @@ export const Profile = () => {
         <div className='mb-5'>
             {/* <Header/> */}
             <Container>
-                {/* <div>
+                <div>
                     <Avatar />
-                </div> */}
+                </div>
                 <div className='mt-3'>
                     <CustomTabs
                         rightButtonFunc={goToCreateNewProject}

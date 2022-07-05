@@ -12,6 +12,10 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import { IntlProvider, FormattedMessage, FormattedNumber } from 'react-intl'
 import title_az from "./locales/az/az.json"
 import title_en from "./locales/en/en.json"
+import { store } from './redux/store';
+import { Provider } from 'react-redux';
+import { ChakraProvider } from "@chakra-ui/react"
+console.log(ChakraProvider)
 const messages = {
   az: title_az,
   en: title_en,
@@ -50,13 +54,17 @@ let language = navigator.language.split(/[-_]/)[0]
 
 function App() {
   return (
-    <IntlProvider
-      locale={navigator.language.split(/[-_]/)[0]}
-      messages={messages[language]}>
-      <div className="App">
-        <Routez />
-      </div>
-    </IntlProvider>
+    <Provider store={store}>
+      {/* <ChakraProvider> */}
+      <IntlProvider
+        locale={navigator.language.split(/[-_]/)[0]}
+        messages={messages[language]}>
+        <div className="App">
+          <Routez />
+        </div>
+      </IntlProvider>
+      {/* </ChakraProvider> */}
+    </Provider>
 
     //       {/* <div className="container__zoomed_image" style={{marginTop: "200px",
     //     display: "flex",

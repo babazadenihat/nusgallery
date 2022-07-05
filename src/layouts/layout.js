@@ -3,6 +3,7 @@ import { createTheme, ThemeProvider, CssBaseline, Typography, createMuiTheme, Fo
 import { makeStyles } from '@material-ui/styles'
 import { Col, Container, Row } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux/es/hooks/useSelector'
 import blanka from "../fonts/Blanka-Regular.otf"
 import * as Styled from "../styledComponents/styled";
 import HeaderController from '../components/HeaderController'
@@ -11,6 +12,7 @@ import animatedImg1 from "../images/animated-img-1.jpg"
 import animatedImg2 from "../images/animated-img-2.jpg"
 import animatedImg3 from "../images/animated-img-3.jpg"
 import animatedImg4 from "../images/animated-img-4.jpg"
+import { text } from '../translations/translation'
 // const theme = createTheme({
 //  typography: {
 //      fontFamily: "Blanka"
@@ -34,7 +36,7 @@ import animatedImg4 from "../images/animated-img-4.jpg"
 
 export const Header = () => {
     const classes = useStyle();
-
+    const selectedLang = useSelector((state) => state.language.translation);
 
 
     return (
@@ -49,9 +51,9 @@ export const Header = () => {
                                     <div>Gallery</div>
                                 </a>
                                 <ul className={classes.navUl}>
-                                    <li className='me-5'><Link to="/">Əsas səhifə</Link></li>
-                                    <li className='me-5'><Link to="/">Qalereya</Link></li>
-                                    <li className='me-5'><Link to="/blog">Bloq</Link></li>
+                                    <li className='me-5'><Link to="/">{text.home[selectedLang]}</Link></li>
+                                    <li className='me-5'><Link to="/">{text.gallery[selectedLang]}</Link></li>
+                                    <li className='me-5'><Link to="/blog">{text.blog[selectedLang]}</Link></li>
                                 </ul>
                             </Col>
                             <Col md={6} className="d-flex justify-content-end align-items-center">

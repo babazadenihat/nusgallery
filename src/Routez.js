@@ -28,7 +28,7 @@ export const Routez = () => {
                     <Route path="/newproject" element={<NewProject/>}></Route>
                     <Route path="/mycart" element={<MyCart/>}></Route>
                     <Route path="/blog" element={<Blog/>}></Route>
-                    <Route path="/blog-details" element={<BlogDetails/>}></Route>
+                    <Route path="/blog/:id" element={<BlogDetails/>}></Route>
                     <Route path="/notification" element={<Notification/>}></Route>
                 </Routes>
             </Router>

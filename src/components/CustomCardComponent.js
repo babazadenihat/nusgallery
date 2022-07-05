@@ -15,6 +15,8 @@ import { Button, makeStyles } from '@material-ui/core';
 import { IntlProvider, FormattedMessage, FormattedNumber } from 'react-intl'
 
 
+
+
 export const CustomCardComponent = (props) => {
     const classes = useStyle();
     const {
@@ -25,19 +27,23 @@ export const CustomCardComponent = (props) => {
         paintName,
         keyProp,
         id,
-        order
+        order,
+        bidCount
     } = props;
 
-    console.log(keyProp)
+
+
     return (
         <>
             <Card
+                id={order.toString()}
                 style={style}
-                draggable={true}
-                onDragStart={handleDrag}
-                onDragOver={(e => e.preventDefault())}
-                onDrop={handleDrop}
-                id={id}
+                // draggable={true}
+                // onDragStart={handleDrag}
+                // onDragOver={(e => e.preventDefault())}
+                // onDrop={handleDrop}
+                // id="items"
+                className={classes.cardStyle}
                 key={keyProp}
             >
 
@@ -50,7 +56,7 @@ export const CustomCardComponent = (props) => {
                             <span className="ms-2">{paintName}</span>
                         </Card.Title>
                         <Card.Text>
-                            “No More Voices”
+                            “No More Voices” {order}
                         </Card.Text>
                     </Card.Body>
                 </Button>
@@ -58,7 +64,7 @@ export const CustomCardComponent = (props) => {
                 <ListGroup className="list-group-flush">
                     <ListGroupItem className="d-flex justify-content-between">
                         <div>Təklif sayı</div>
-                        <div>24</div>
+                        <div>{bidCount}</div>
                     </ListGroupItem>
                     <ListGroupItem className="d-flex justify-content-between">
                         <div>Cari təklif</div>
@@ -80,7 +86,7 @@ export const CustomCardComponent = (props) => {
 }
 
 
-const useStyle = makeStyles({
+const useStyle = makeStyles(theme => ({
     tablist: {
         display: "flex",
         justifyContent: "space-between",
@@ -93,8 +99,13 @@ const useStyle = makeStyles({
         "& .MuiButton-label": {
             display: "block"
         }
+    },
+    cardStyle: {
+        [theme.breakpoints.down("md")]: {
+            width: "100% !important"
+        }
     }
-})
+}))
 
 
 

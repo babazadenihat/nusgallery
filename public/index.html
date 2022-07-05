@@ -15,9 +15,11 @@
   <link href="http://fonts.cdnfonts.com/css/blanka" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
-    input[type="number"] {
+    /* input[type="number"] {
       -webkit-appearance: textfield;
       -moz-appearance: textfield;
       appearance: textfield;
@@ -26,24 +28,133 @@
     input[type=number]::-webkit-inner-spin-button,
     input[type=number]::-webkit-outer-spin-button {
       -webkit-appearance: none;
-    }
+    } */
 
     a:hover {
       color: unset
     }
+
     .text-white a:hover {
       color: #fff
     }
+
     .text-white a {
       color: unset;
     }
   </style>
-  <title>Nus Gallery</title>
+  <!-- <style type="text/css">
+    @font-face {
+      font-family: 'JISAZNRegular';
+      src: url('jaznr.eot');
+      src: url('jaznr.eot?#iefix') format('embedded-opentype'),
+        url('jaznr.woff') format('woff'),
+        url('jaznr.ttf') format('truetype'),
+        url('jaznr.svg#jaznr') format('svg');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    span {
+      font-family: 'JISAZNRegular';
+    }
+  </style> -->
+  <title>project </title>
 </head>
 
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root"></div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="">
+    // Jquery Dependency
+
+    // $("input[data-type='currency']").on({
+    //   keyup: function () {
+    //     formatCurrency($(this));
+    //   },
+    //   blur: function () {
+    //     formatCurrency($(this), "blur");
+    //   }
+    // });
+
+
+    // function formatNumber(n) {
+    //   // format number 1000000 to 1,234,567
+    //   return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    // }
+
+
+    // function formatCurrency(input, blur) {
+    //   // appends $ to value, validates decimal side
+    //   // and puts cursor back in right position.
+
+    //   // get input value
+    //   var input_val = input.val();
+
+    //   // don't validate empty input
+    //   if (input_val === "") { return; }
+
+    //   // original length
+    //   var original_len = input_val.length;
+
+    //   // initial caret position
+    //   var caret_pos = input.prop("selectionStart");
+
+    //   // check for decimal
+    //   if (input_val.indexOf(".") >= 0) {
+
+    //     // get position of first decimal
+    //     // this prevents multiple decimals from
+    //     // being entered
+    //     var decimal_pos = input_val.indexOf(".");
+
+    //     // split number by decimal point
+    //     var left_side = input_val.substring(0, decimal_pos);
+    //     var right_side = input_val.substring(decimal_pos);
+
+    //     // add commas to left side of number
+    //     left_side = formatNumber(left_side);
+
+    //     // validate right side
+    //     right_side = formatNumber(right_side);
+
+    //     // On blur make sure 2 numbers after decimal
+    //     if (blur === "blur") {
+    //       right_side += "00";
+    //     }
+
+    //     // Limit decimal to only 2 digits
+    //     right_side = right_side.substring(0, 2);
+
+    //     // join number by .
+    //     input_val = "$" + left_side + "." + right_side;
+
+    //   } else {
+    //     // no decimal entered
+    //     // add commas to number
+    //     // remove all non-digits
+    //     input_val = formatNumber(input_val);
+    //     input_val = "$" + input_val;
+
+    //     // final formatting
+    //     if (blur === "blur") {
+    //       input_val += ".00";
+    //     }
+    //   }
+
+    //   // send updated string to input
+    //   input.val(input_val);
+
+    //   // put caret back in the right position
+    //   var updated_len = input_val.length;
+    //   caret_pos = updated_len - original_len + caret_pos;
+    //   input[0].setSelectionRange(caret_pos, caret_pos);
+    // }
+
+
+
+  </script>
 </body>
 
 </html>
