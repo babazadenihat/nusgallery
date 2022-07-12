@@ -9,7 +9,7 @@ import clsx from 'clsx';
 import { KeyboardArrowDownSharp } from "@material-ui/icons"
 import title_az from "../locales/az/az.json"
 import title_en from "../locales/en/en.json"
-import { LoggedUserField } from './LoggedUserField';
+import { LoggedUserField } from './loggedUserField';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { changeLang } from '../redux/features/translation/translationSlice';
 

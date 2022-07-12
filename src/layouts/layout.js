@@ -84,16 +84,16 @@ export const Footer = () => {
                         <a href='mailto: hello@nusgallery.az'><span>Bİzİ İzləyİn</span></a>
                         <div className='text-right mt-2'>
                             <a href='https://instagtram/nusgallery'>
-                                <i class="fa-brands fa-instagram"></i>
+                                <i className="fa-brands fa-instagram"></i>
                             </a>
                             <a href='https://instagtram/nusgallery' className='ms-3'>
-                                <i class="fa-brands fa-facebook"></i>
+                                <i className="fa-brands fa-facebook"></i>
                             </a>
                             <a href='https://instagtram/nusgallery' className='ms-3'>
-                                <i class="fa-brands fa-linkedin-in"></i>
+                                <i className="fa-brands fa-linkedin-in"></i>
                             </a>
                             <a href='https://instagtram/nusgallery' className='ms-3'>
-                                <i class="fa-brands fa-pinterest"></i>
+                                <i className="fa-brands fa-pinterest"></i>
                             </a>
                         </div>
                     </div>

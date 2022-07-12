@@ -24,16 +24,11 @@ import arrowDown from "../images/icons/arrow-down.svg";
 // import arrow from "../images/icons/arrow-down.svg";
 import jQuery from 'jquery';
 import CurrencyInput from 'react-currency-input-field';
-import { text } from '../translations/translation';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import {
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
-} from '@chakra-ui/react'
+import { text } from '../translations/translation';
+
+
 
 jQuery("input[data-type='currency']").on({
   keyup: function () {
@@ -119,7 +114,6 @@ function formatCurrency(input, blur) {
 }
 
 
-
 export const Home = () => {
   const selectedLang = useSelector((state) => state.language.translation)
   const classes = useStyle();
@@ -163,7 +157,7 @@ export const Home = () => {
           rightButtonText="Filter"
           paintingModal={setModalShow2}
           tabEnable={false}
-          tabLabel={{ tab1: "Onlayn", tab2: "Oflayn" }}
+          tabLabel={text.productTabLabel}
         />
         <Box sx={{ textAlign: "center", marginTop: "42px" }}><Styled.MoreBtn>Daha çox</Styled.MoreBtn></Box>
         <FilterModal
@@ -417,27 +411,7 @@ function PaintingModal(props) {
                         min={0}
                         step = {50}
                   /> */}
-                  <NumberInput
-                  style={{position: "relative"}}
-                    onChange={(valueString) => setPrice(parse(valueString))}
-                    value={format(price)}
-                    max={10000}
-                    min={0}
-                    allowMouseWheel
-                    isRequired
-                    variant="unstyled"
-                    step={50}
-                  >
-                    <NumberInputField />
-                    {/* <NumberInputStepper >
-                      <NumberIncrementStepper  />
-                      <NumberDecrementStepper />
-                    </NumberInputStepper> */}
-                    <div className={clsx(classes.inputControlBtn)}>
-                      <button onClick={() => handlePriceBySign("+")}>+</button>
-                      <button onClick={() => handlePriceBySign("-")}>-</button>
-                    </div>
-                  </NumberInput>
+        
                   {/* <CurrencyInput
                     suffix="&#8380;"
                     // intlConfig={{ locale: 'az-AZ', currency: 'AZN' }}
@@ -473,7 +447,7 @@ function PaintingModal(props) {
 
 const getIcon = () => {
   return (
-    <span><i class="fa-solid fa-manat-sign"></i></span>
+    <span><i className="fa-solid fa-manat-sign"></i></span>
   )
 }
 

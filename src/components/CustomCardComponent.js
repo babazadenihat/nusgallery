@@ -38,6 +38,7 @@ export const CustomCardComponent = (props) => {
             <Card
                 id={order.toString()}
                 style={style}
+                data-id={id}
                 // draggable={true}
                 // onDragStart={handleDrag}
                 // onDragOver={(e => e.preventDefault())}

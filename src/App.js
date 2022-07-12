@@ -14,8 +14,6 @@ import title_az from "./locales/az/az.json"
 import title_en from "./locales/en/en.json"
 import { store } from './redux/store';
 import { Provider } from 'react-redux';
-import { ChakraProvider } from "@chakra-ui/react"
-console.log(ChakraProvider)
 const messages = {
   az: title_az,
   en: title_en,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import GridLayout, { Responsive } from 'react-grid-layout';
 import "../style.css"
@@ -7,20 +7,29 @@ import { CustomCardComponent } from './CustomCardComponent';
 import { Link } from "react-router-dom"
 import { Button, makeStyles } from '@material-ui/core';
 import CustomCart from './customCart';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
 import Sortable from "sortablejs"
-import { useEffect } from 'react';
+
+// redux
+import { useSelector } from 'react-redux';
+// translations
+import { text } from '../translations/translation';
+
 
 export const CustomTabs = (props) => {
-    const [cartData, setcartData] = useState([])
+    const selectedLang = useSelector((state) => state.language.translation);
+    const {
+        rightButtonIcon,
+        rightButtonText,
+        rightButtonFunc,
+        paintingModal,
+        tabEnable,
+        tabLabel,
+        cartEnable
+    }
+        = props
+    const classes = useStyle();
     const [filteredData, setfilteredData] = useState([])
     const [index, setIndex] = useState(null)
-    const [dragId, setDragId] = useState();
-    const [order, setOrder] = useState(0);
-    const [draggedOrder, setDraggedOrder] = useState(0);
-    const [droppedOrder, setDroppedOrder] = useState(0);
-
     const paintData = [
         {
             id: "1",
@@ -34,7 +43,7 @@ export const CustomTabs = (props) => {
         },
         {
             id: "2",
-            name: "Tahir Manafov",
+            name: "Saddam Manafov",
             title: "No More Worries",
             bidCount: "24",
             currentBid: "43",
@@ -44,7 +53,7 @@ export const CustomTabs = (props) => {
         },
         {
             id: "3",
-            name: "Tahir Qarayev",
+            name: "Jake Qarayev",
             title: "No More Choices",
             bidCount: "21",
             currentBid: "28",
@@ -53,15 +62,13 @@ export const CustomTabs = (props) => {
             order: 2
         },
     ]
-
     const [data, setData] = useState(paintData);
 
-    console.log(draggedOrder)
 
     useEffect(() => {
         fetch("http://142.93.97.123/api/v1.0/products/").then(
             response => {
-                if(response) {
+                if (response) {
                     response.json()
                 }
             }
@@ -70,159 +77,53 @@ export const CustomTabs = (props) => {
 
     useEffect(() => {
         var el = document.getElementById('items');
-        // console.log(el)
-        var sortable = new Sortable(el, {
-            // handle: ".handle",
-            animation: 450,
-            easing: "cubic-bezier(1, 0, 0, 1)",
-            forceFallback: false,
-            sort: true,
-            onChange: function setNewOrder(e) {
-                const newIndex = e.newDraggableIndex
-                const oldIndex = e.oldDraggableIndex;
-                // let copied = data;
-                // copied[oldIndex].order = newIndex;
-                // copied[newIndex].order = oldIndex;
+        if (el) {
+            var sortable = new Sortable(el, {
+                // handle: ".handle",
+                ghostClass: 'ghost',
+                animation: 450,
+                easing: "cubic-bezier(1, 0, 0, 1)",
+                forceFallback: false,
+                store: {
+                    get: function (sortable) {
+                        var order = localStorage.getItem(sortable.options.group.name);
+                        return order ? order.split('|') : [];
+                    },
+                    set: function (sortable) {
+                        var order = sortable.toArray();
+                        localStorage.setItem(sortable.options.group.name, order.join('|'));
+                    }
+                },
+                sort: true,
+                onUpdate: function setNewOrder(e) {
+                    let order = this.toArray()?.map(or => or.toString());
+                    let copied = [...data];
+                    copied.sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id));
 
-
-
-                const cardOrderId = e.item.id
-
-
-                const findItem = data.find(item => item.order.toString() === cardOrderId)
-                const filteredArr = data.filter(item => item.order.toString() !== cardOrderId)
-
-                let copiedArr = [...filteredArr]
-                copiedArr.splice(newIndex, 0, findItem);
-
-                const mappedArr = copiedArr.map((x, i) => ({ ...x, order: i }))
-                // .sort((a, b) => a.order - b.order)
-                console.log('mappedArr', mappedArr);
-
-                // console.log('newIndex, oldIndex', oldIndex, newIndex, e.item.id)
-
-                // console.log(copied)
-                // const dragged = data?.find(d => d.order.toString() === cardOrderId);
-
-                // const dropped = data?.find(d => d.order.toString() === newIndex);
-
-                // setDraggedOrder(dropped.order)
-                // setDroppedOrder(dragged.order)
-                // console.log('dragged dropped', dragged?.name, dropped?.name);
-
-                // const newDataState = data.map((d, i) => {
-                //     if (d.order.toString() === cardOrderId) {
-                //         console.log('find d', d.order, cardOrderId, d);
-                //         d.order = Number(newIndex);
-                //     }
-                //     return d;
-                // // })
-                // console.log('newDataState', newDataState)
-                setData(mappedArr)
-            },
-            // onChange: (e) => setNewOrder(e),
-            swap: true,
-            // onEnd: (e) => setNewOrder(e.oldIndex)
-        })
+                    setData(copied);
+                },
+                swap: true,
+            })
+        }
     }, [])
 
-    useEffect(() => {
-        console.log(data, "data")
-    }, [data])
-    console.log(data)
-    // console.log(order)
-    // function setNewOrder(e) {
-    //     console.log(e.oldIndex, e.newIndex)
-    //         const dragged = data?.find(d => d.order === e.oldIndex);
-    //         const dropped = data?.find(d => d.order === e.newIndex);
-
-    //         console.log(dragged?.order, dropped?.order);
-    //         const newDataState = data.map((d) => {
-    //             if (d.order === e.oldIndex) {
-    //                 console.log("works") // manafov order 1
-    //                 d.order = dropped?.order;
-    //             }
-    //             if (d.order === e.newIndex) { // saahov order 0
-    //                 d.order = dragged?.order;
-    //             }
-    //             return d;
-    //         });
-    //         console.log(newDataState)
-    //         setData(newDataState)
-    //     }
-
-    const {
-        rightButtonIcon,
-        rightButtonText,
-        rightButtonFunc,
-        paintingModal,
-        tabEnable,
-        tabLabel,
-        cartEnable
-    }
-        = props
-    const classes = useStyle();
-
     const cardStyle = {
-        width: '18rem', position: 'relative'
+        width: '18rem',
+        position: 'relative'
     }
-
-
-    // useEffect(() => {
-    //     fetchCartData();
-    // }, [cartData])
-
-    // useEffect(() => {
-    //     const filteredData = cartData.filter(d => d.participant);
-    //     setfilteredData(filteredData);
-    // }, [cartData])
-
-    // const fetchCartData = async () => {
-    //     setcartData() // set data
-    // }
-
-    // const handleDrag = (ev) => {
-    //     console.log(ev.currentTarget.id, "dragging");
-    //     setDragId(ev.currentTarget.id);
-    // };
-
-    // const handleDrop = (ev) => {
-    //     console.log(ev.currentTarget.id, "dropped")
-    //     const dragBox = data.find((d) => d.id === dragId);
-    //     const dropBox = data.find((d) => d.id === ev.currentTarget.id);
-
-    //     const dragBoxOrder = dragBox.order;
-    //     const dropBoxOrder = dropBox.order;
-
-    //     const newDataState = data.map((d) => {
-    //         if (d.id === dragId) {
-    //             d.order = dropBoxOrder;
-    //         }
-    //         if (d.id === ev.currentTarget.id) {
-    //             d.order = dragBoxOrder;
-    //         }
-    //         return d;
-    //     });
-
-    //     setData(newDataState);
-    // };
-
 
     return (
         <>
-            {/* {JSON.stringify(data)} */}
             <Tabs>
                 <TabList className={[classes.tablist, !rightButtonFunc ? "justify-content-start" :
                     tabEnable && rightButtonFunc ? 'justify-content-between' :
                         "justify-content-end"]}>
                     {tabEnable && <div className='d-flex'>
-                        {/* <div> */}
-                        <Tab onClick={(e) => setIndex(e.target.value)}>{tabLabel.tab1}</Tab>
-                        {/* </div> */}
-                        {/* <div className='ms-2'> */}
-
-                        <Tab onClick={(e) => setIndex(e.target.value)}>{tabLabel.tab2}</Tab>
-                        {/* </div> */}
+                        {
+                            tabLabel?.map((label => (
+                                <Tab onClick={(e) => setIndex(e.target.value)}>{label[selectedLang]}</Tab>
+                            )))
+                        }
                     </div>}
                     <div>
                         {
@@ -237,33 +138,32 @@ export const CustomTabs = (props) => {
 
                 <TabPanel>
                     {
-                        // cartEnable ?
-                        //     <CustomCart
-                        //         index={index}
-                        //         cartData={cartData}
-                        //         filteredData={filteredData}
-                        //     /> :
-                        <div className='handle'>
+                        cartEnable ?
+                            <CustomCart
+                                index={index}
+                                filteredData={filteredData}
+                            /> :
+                            <div className='handle'>
 
-                            <div className={classes.galleryGrid} id="items">
-                                {console.log(data, "inner")}
-                                {
+                                <div className={classes.galleryGrid} id="items">
+                                    {console.log(data, "inner")}
+                                    {
 
-                                    // .sort((a, b) => a.order - b.order)
-                                    data?.map((paint, index) => (
-                                        <CustomCardComponent style={cardStyle} paintingModal={paintingModal}
-                                            // handleDrag={handleDrag}
-                                            // handleDrop={handleDrop}
-                                            bidCount={paint.bidCount}
-                                            id={paint.id}
-                                            keyProp={paint.order}
-                                            paintName={paint.name}
-                                            order={paint.order}
-                                        />
-                                    ))
-                                }
+                                        // .sort((a, b) => a.order - b.order)
+                                        data?.map((paint, index) => (
+                                            <CustomCardComponent style={cardStyle} paintingModal={paintingModal}
+                                                // handleDrag={handleDrag}
+                                                // handleDrop={handleDrop}
+                                                bidCount={paint.bidCount}
+                                                id={paint.id}
+                                                keyProp={paint.order}
+                                                paintName={paint.name}
+                                                order={paint.order}
+                                            />
+                                        ))
+                                    }
+                                </div>
                             </div>
-                        </div>
                     }
                 </TabPanel>
                 <TabPanel>
@@ -306,13 +206,3 @@ const useStyle = makeStyles(theme => ({
     //     }
     // }
 }))
-
-
-
-const layout = [
-    { i: '0', x: 0, y: 0, w: 3, h: 2, },
-    { i: '1', x: 3.4, y: 0, w: 1, h: 2 },
-    { i: '2', x: 6.8, y: 0, w: 3, h: 2, },
-    { i: '3', x: 10.2, y: 0, w: 1, h: 2 },
-    { i: '4', x: 0, y: 0, w: 1, h: 2, }
-];

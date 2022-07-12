@@ -13,19 +13,19 @@ import { useState } from 'react';
 import NotificationPanel from './NotificationPanel';
 
 const notificationData = [
-    {
+    {   id: "1",
         title: "“Le Carnaval (Les Cotillons)”",
         photo: notifimg1,
         date: "1",
         status: "winner"
     },
-    {
+    {   id: "2",
         title: "“Morning Glory”",
         photo: notifimg2,
         date: "4",
         status: "loser"
     },
-    {
+    {   id: "3",
         title: "“No More Voices”",
         photo: notifimg3,
         date: "4",
@@ -63,7 +63,7 @@ export const LoggedUserField = () => {
                 {
                     notificationData.length &&
                     notificationData?.map((n => (
-                        <NotificationPanel notification={n}/>
+                        <NotificationPanel key={n.id} notification={n}/>
                         // <Box className={clsx(n.status === "winner" ? classes.winnerMessageBox : classes.loserMessageBox,
                         //     classes.muiMessageBox)}>
                         //     <div>

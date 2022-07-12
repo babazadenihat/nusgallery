@@ -6,6 +6,8 @@ import { Trans, useTranslation } from 'react-i18next';
 // import '../i18next';
 import CustomCart from '../components/customCart';
 import { makeStyles } from '@material-ui/core';
+// translations
+import { text } from '../translations/translation';
 
 const MyCart = () => {
   const classes = useStyle();
@@ -14,22 +16,15 @@ const MyCart = () => {
   const changeLang = (e) => {
     i18n.changeLanguage(e);
   }
+
   return (
     <>
       <Container className={classes.container}>
         <div className={classes.cartContainerWidth}>
-          {/* <button onClick={() => changeLang("az")}>AZ</button>
-          <button onClick={() => changeLang("en")}>EN</button> */}
-          {/* <h2>
-            <Trans  
-              i18nKey="title"
-            ></Trans>
-            {t("title1")}
-          </h2> */}
           <CustomTabs
             tabEnable={true}
             cartEnable={true}
-            tabLabel={{ tab1: "Hamısı", tab2: "İştirakçıyam" }}
+            tabLabel={text.cartTabLabel}
           />
         </div>
       </Container>
