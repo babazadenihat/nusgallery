@@ -9,15 +9,10 @@ import { Routez } from './Routez';
 import { Profile } from './pages/Profile';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
-import { IntlProvider, FormattedMessage, FormattedNumber } from 'react-intl'
-import title_az from "./locales/az/az.json"
-import title_en from "./locales/en/en.json"
+import { IntlProvider, FormattedMessage, FormattedNumber } from 'react-intl';
 import { store } from './redux/store';
 import { Provider } from 'react-redux';
-const messages = {
-  az: title_az,
-  en: title_en,
-}
+
 
 // const theme = createMuiTheme({
 //   // typography: {
@@ -37,11 +32,7 @@ const props = {
   width: 400, height: 250, zoomWidth: 500,
   img: `${tiger}`, zoomLensStyle: "opacity: 0.4;background-color: gray", zoomPosition: "top"
 };
-const layout = [
-  { i: 'a', x: 0, y: 0, w: 1, h: 2, static: true },
-  { i: 'b', x: 1, y: 0, w: 3, h: 2, minW: 2, maxW: 4 },
-  { i: 'c', x: 4, y: 0, w: 1, h: 2 }
-];
+
 const style = {
   border: "1px solid black"
 }
@@ -53,14 +44,10 @@ let language = navigator.language.split(/[-_]/)[0]
 function App() {
   return (
     <Provider store={store}>
-      {/* <ChakraProvider> */}
-      <IntlProvider
-        locale={navigator.language.split(/[-_]/)[0]}
-        messages={messages[language]}>
         <div className="App">
           <Routez />
         </div>
-      </IntlProvider>
+  
       {/* </ChakraProvider> */}
     </Provider>
 

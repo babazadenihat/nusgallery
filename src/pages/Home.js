@@ -128,6 +128,7 @@ export const Home = () => {
   const [modalShow, setModalShow] = React.useState(false);
   const [modalShow2, setModalShow2] = React.useState(false);
   const [blogData, setBlogData] = useState({})
+  const [productData, setProductData] = useState({})
 
   useEffect(() => {
     fetch("http://142.93.97.123/api/v1.0/blogs/").then(
@@ -141,8 +142,16 @@ export const Home = () => {
 
 
   useEffect(() => {
-    console.log(window.document)
-  }, [])
+    fetch("http://142.93.97.123/api/v1.0/products/").then(
+        response => {
+            if (response) {
+               return response.json()
+            }
+        }
+    ).then(data => setProductData(data)).catch((err) => console.log(err.message))
+}, [])
+
+console.log(productData)
 
   return (
     <div>
@@ -158,6 +167,7 @@ export const Home = () => {
           paintingModal={setModalShow2}
           tabEnable={false}
           tabLabel={text.productTabLabel}
+          dataList={productData || []}
         />
         <Box sx={{ textAlign: "center", marginTop: "42px" }}><Styled.MoreBtn>Daha çox</Styled.MoreBtn></Box>
         <FilterModal

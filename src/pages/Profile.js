@@ -17,16 +17,6 @@ import { CustomCardComponent } from '../components/CustomCardComponent';
 import { CustomTabs } from "../components/CustomTabs"
 import Avatar from '../components/Avatar';
 
-
-const layout = [
-    { i: '0', x: 0, y: 0, w: 3, h: 2, },
-    { i: '1', x: 3, y: 0, w: 1, h: 2 },
-    { i: '2', x: 6, y: 0, w: 3, h: 2, },
-    { i: '3', x: 0, y: 5, w: 1, h: 2 },
-    { i: '4', x: 0, y: 0, w: 1, h: 2, }
-];
-
-
 export const Profile = () => {
 
     const navigate = useNavigate();

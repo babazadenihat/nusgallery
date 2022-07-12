@@ -24,7 +24,8 @@ export const CustomTabs = (props) => {
         paintingModal,
         tabEnable,
         tabLabel,
-        cartEnable
+        cartEnable,
+        dataList
     }
         = props
     const classes = useStyle();
@@ -64,16 +65,6 @@ export const CustomTabs = (props) => {
     ]
     const [data, setData] = useState(paintData);
 
-
-    useEffect(() => {
-        fetch("http://142.93.97.123/api/v1.0/products/").then(
-            response => {
-                if (response) {
-                    response.json()
-                }
-            }
-        ).then(data => console.log(data)).catch((err) => console.log(err.message))
-    }, [])
 
     useEffect(() => {
         var el = document.getElementById('items');
@@ -146,7 +137,6 @@ export const CustomTabs = (props) => {
                             <div className='handle'>
 
                                 <div className={classes.galleryGrid} id="items">
-                                    {console.log(data, "inner")}
                                     {
 
                                         // .sort((a, b) => a.order - b.order)

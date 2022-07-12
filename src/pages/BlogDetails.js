@@ -1,6 +1,5 @@
 import React from 'react'
 import { Container } from 'react-bootstrap'
-import { CustomTabs } from '../components/CustomTabs';
 import { title } from '../translations';
 import { Trans, useTranslation } from 'react-i18next';
 // import '../i18next';
