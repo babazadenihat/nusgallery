@@ -10,9 +10,10 @@ import { Profile } from './pages/Profile';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import { IntlProvider, FormattedMessage, FormattedNumber } from 'react-intl';
-import { store } from './redux/store';
+import Store from './redux/store';
+// import persistor from './redux/store';
 import { Provider } from 'react-redux';
-
+import { PersistGate } from 'redux-persist/integration/react';
 
 // const theme = createMuiTheme({
 //   // typography: {
@@ -27,7 +28,6 @@ import { Provider } from 'react-redux';
 //         ].join(','),
 //   }
 // });
-
 const props = {
   width: 400, height: 250, zoomWidth: 500,
   img: `${tiger}`, zoomLensStyle: "opacity: 0.4;background-color: gray", zoomPosition: "top"
@@ -42,13 +42,18 @@ const style = {
 let language = navigator.language.split(/[-_]/)[0]
 
 function App() {
+  const {store, persistor} = Store();
+
   return (
     <Provider store={store}>
+      <PersistGate loading={null}  persistor={persistor}>
+
         <div className="App">
           <Routez />
         </div>
-  
-      {/* </ChakraProvider> */}
+
+        {/* </ChakraProvider> */}
+      </PersistGate >
     </Provider>
 
     //       {/* <div className="container__zoomed_image" style={{marginTop: "200px",

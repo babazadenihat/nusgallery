@@ -1,46 +1,46 @@
 export const text = {
     "home": {
-        "az": "Əsas səhifə",
-        "en": "Home",
-        "ru": "дом"
+        "AZ": "Əsas səhifə",
+        "EN": "Home",
+        "RU": "дом"
     },
     "gallery": {
-        "az": "Qalereya",
-        "en": "Gallery",
-        "ru": "галерея"
+        "AZ": "Qalereya",
+        "EN": "Gallery",
+        "RU": "галерея"
     },
     "blog": {
-        "az": "Bloq",
-        "en": "Blog",
-        "ru": "блог"
+        "AZ": "Bloq",
+        "EN": "Blog",
+        "RU": "блог"
     },
     "cartTabLabel": [
         {
-            "az": "Səbətim",
-            "en": "My cart",
-            "ru": ""
+            "AZ": "Səbətim",
+            "EN": "My cart",
+            "RU": ""
         },
         {
-            "az": "İştirakçıyam",
-            "en": "I'm Participant",
-            "ru": ""
+            "AZ": "İştirakçıyam",
+            "EN": "I'm Participant",
+            "RU": ""
         },
         {
-            "az": "Favoritlər",
-            "en": "Favorites",
-            "ru": ""
+            "AZ": "Favoritlər",
+            "EN": "Favorites",
+            "RU": ""
         },
     ],
     "productTabLabel": [
         {
-            "az": "Onlayn",
-            "en": "Online",
-            "ru": ""
+            "AZ": "Onlayn",
+            "EN": "Online",
+            "RU": ""
         },
         {
-            "az": "Offlayn",
-            "en": "Offline",
-            "ru": ""
+            "AZ": "Offlayn",
+            "EN": "Offline",
+            "RU": ""
         },
     ]
 }

@@ -19,12 +19,12 @@ let token = "ressam";
 
 function HeaderController() {
     const dispatch = useDispatch();
-    const [locale, setLocale] = useState("");
     const classes = useStyle();
     const navigate = useNavigate()
     const [navLang, setLang] = React.useState('');
     const language = useSelector((state) => state.language.translation);
-
+    const [locale, setLocale] = useState(language);
+    
     console.log(language);
     function selectLanguage(e) {
         const newLocale = e.target.value;
@@ -57,16 +57,16 @@ function HeaderController() {
         <div className='d-flex align-items-center'>
             <FormControl>
                 <Select
-                    value={locale || "az"}
+                    value={locale || "AZ"}
                     onChange={selectLanguage}
                     className={classes.langInput}
                     inputProps={{ 'aria-label': 'Without label' }}
                     disableUnderline
                     IconComponent={KeyboardArrowDownSharp}
                 >
-                    <MenuItem value="az">AZ</MenuItem>
-                    <MenuItem value="en">EN</MenuItem>
-                    <MenuItem value="ru">RU</MenuItem>
+                    <MenuItem value="AZ">AZ</MenuItem>
+                    <MenuItem value="EN">EN</MenuItem>
+                    <MenuItem value="RU">RU</MenuItem>
                 </Select>
             </FormControl>
             {

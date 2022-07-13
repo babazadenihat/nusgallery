@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    translation: "az"
+    translation: "AZ"
 }
-console.log(initialState)
+
 export const languageSlice = createSlice({
     name: 'language',
     initialState,
