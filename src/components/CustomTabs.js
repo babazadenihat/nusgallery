@@ -84,7 +84,7 @@ export const CustomTabs = (props) => {
                         
                         // let ordered = dispatch(sortItems(sortable.options.group.name))
                         var order = localStorage.getItem(sortable.options.group.name);
-                        return ordered ? ordered.split('|') : [];
+                        return ordered?.length ? ordered?.split('|') : [];
                     },
                     set: function (sortable) {
                         var order = sortable.toArray();
