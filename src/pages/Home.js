@@ -168,6 +168,7 @@ console.log(productData)
           tabEnable={false}
           tabLabel={text.productTabLabel}
           dataList={productData || []}
+          renderRoute={"home"}
         />
         <Box sx={{ textAlign: "center", marginTop: "42px" }}><Styled.MoreBtn>Daha çox</Styled.MoreBtn></Box>
         <FilterModal

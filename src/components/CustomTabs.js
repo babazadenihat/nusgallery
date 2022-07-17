@@ -10,9 +10,10 @@ import CustomCart from './customCart';
 import Sortable from "sortablejs"
 
 // redux
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // translations
 import { text } from '../translations/translation';
+import { sortItems } from '../redux/features/sortableItems/sortableItemSlice';
 
 
 export const CustomTabs = (props) => {
@@ -25,7 +26,8 @@ export const CustomTabs = (props) => {
         tabEnable,
         tabLabel,
         cartEnable,
-        dataList
+        dataList,
+        renderRoute,
     }
         = props
     const classes = useStyle();
@@ -64,24 +66,29 @@ export const CustomTabs = (props) => {
         },
     ]
     const [data, setData] = useState(paintData);
-
-
+    const { ordered } = useSelector((state) => state.sortableItems)
+    console.log(ordered)
+    const dispatch = useDispatch();
     useEffect(() => {
         var el = document.getElementById('items');
         if (el) {
             var sortable = new Sortable(el, {
                 // handle: ".handle",
                 ghostClass: 'ghost',
+                ignore: '.cardImgCover',
                 animation: 450,
                 easing: "cubic-bezier(1, 0, 0, 1)",
                 forceFallback: false,
                 store: {
                     get: function (sortable) {
+                        
+                        // let ordered = dispatch(sortItems(sortable.options.group.name))
                         var order = localStorage.getItem(sortable.options.group.name);
-                        return order ? order.split('|') : [];
+                        return ordered?.length ? ordered?.split('|') : [];
                     },
                     set: function (sortable) {
                         var order = sortable.toArray();
+                        dispatch(sortItems(order.join('|')))
                         localStorage.setItem(sortable.options.group.name, order.join('|'));
                     }
                 },
@@ -92,6 +99,10 @@ export const CustomTabs = (props) => {
                     copied.sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id));
 
                     setData(copied);
+                },
+                onMove: function (evt) {
+                    console.log(evt.related.className.indexOf('cardImgCover') === -1)
+                    return evt.related.className.indexOf('cardImgCover') === -1; //and this
                 },
                 swap: true,
             })
@@ -134,11 +145,10 @@ export const CustomTabs = (props) => {
                                 index={index}
                                 filteredData={filteredData}
                             /> :
-                            <div className='handle'>
+                            <div >
 
-                                <div className={classes.galleryGrid} id="items">
+                                <div className={classes.galleryGrid} id={renderRoute && "items"}>
                                     {
-
                                         // .sort((a, b) => a.order - b.order)
                                         data?.map((paint, index) => (
                                             <CustomCardComponent style={cardStyle} paintingModal={paintingModal}
@@ -149,6 +159,7 @@ export const CustomTabs = (props) => {
                                                 keyProp={paint.order}
                                                 paintName={paint.name}
                                                 order={paint.order}
+                                                renderRoute={renderRoute}
                                             />
                                         ))
                                     }

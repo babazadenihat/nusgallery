@@ -29,7 +29,8 @@ export const CustomCardComponent = (props) => {
         keyProp,
         id,
         order,
-        bidCount
+        bidCount,
+        renderRoute
     } = props;
 
 
@@ -138,20 +139,22 @@ const useStyle = makeStyles(theme => ({
                 className={classes.cardStyle}
                 key={keyProp}
             >
-
-                <DraggableBox />
-                <Button onClick={() => paintingModal(true)} className={classes.noStyleBtnLabel}>
-                    <div className="cardImgCover"><Card.Img variant="top" src={paint1} /></div>
-                    <Card.Body>
-                        <Card.Title className="d-flex align-items-center">
-                            <img src={userPhoto} alt="" className="cardSmallImg" />
-                            <span className="ms-2">{paintName}</span>
-                        </Card.Title>
-                        <Card.Text>
-                            “No More Voices” {order}
-                        </Card.Text>
-                    </Card.Body>
-                </Button>
+                {
+                    renderRoute === "home" &&
+                    <DraggableBox />
+                }
+                {/* <Button onClick={() => paintingModal(true)} className={`${classes.noStyleBtnLabel} card-btn`}> */}
+                <div className="cardImgCover"><Card.Img variant="top" src={paint1} /></div>
+                <Card.Body>
+                    <Card.Title className="d-flex align-items-center">
+                        <img src={userPhoto} alt="" className="cardSmallImg" />
+                        <span className="ms-2">{paintName}</span>
+                    </Card.Title>
+                    <Card.Text>
+                        “No More Voices” {order}
+                    </Card.Text>
+                </Card.Body>
+                {/* </Button> */}
 
                 <ListGroup className="list-group-flush">
                     <ListGroupItem className="d-flex justify-content-between">

@@ -13,19 +13,22 @@ import { useState } from 'react';
 import NotificationPanel from './NotificationPanel';
 
 const notificationData = [
-    {   id: "1",
+    {
+        id: "1",
         title: "“Le Carnaval (Les Cotillons)”",
         photo: notifimg1,
         date: "1",
         status: "winner"
     },
-    {   id: "2",
+    {
+        id: "2",
         title: "“Morning Glory”",
         photo: notifimg2,
         date: "4",
         status: "loser"
     },
-    {   id: "3",
+    {
+        id: "3",
         title: "“No More Voices”",
         photo: notifimg3,
         date: "4",
@@ -39,18 +42,26 @@ export const LoggedUserField = () => {
     const classes = useStyle();
     const [showDropdown, setShowDropdown] = useState(false);
 
-    function openDropdown() {
-        console.log("sd")
-        if (!showDropdown) {
+    window.document.getElementById("root").onclick = function(e) {
+        console.log(e.target.className?.includes("avatar-toggle"), e.target.className)
+    }
+    function openDropdown(e) {
+        
+        console.log(window.document)
+        if (e.currentTarget.className?.includes("avatar-toggle")) {
+
             setShowDropdown(true)
-        } else {
+        } else  {
             setShowDropdown(false)
         }
+        // if (!showDropdown) {
+        // } else {
+        // }
     }
 
     return (
         <div className={classes.avatarHolder}>
-            <div className='ms-2' onClick={() => openDropdown()}>
+            <div className='ms-2 avatar-toggle' onClick={(e) => openDropdown(e)}>
                 {/* <Link to="/login"> */}
                 <div className='ms-2 position-relative'>
                     <img src={userPhoto} className={classes.userPhoto} />
@@ -63,7 +74,7 @@ export const LoggedUserField = () => {
                 {
                     notificationData.length &&
                     notificationData?.map((n => (
-                        <NotificationPanel key={n.id} notification={n}/>
+                        <NotificationPanel key={n.id} notification={n} />
                         // <Box className={clsx(n.status === "winner" ? classes.winnerMessageBox : classes.loserMessageBox,
                         //     classes.muiMessageBox)}>
                         //     <div>
