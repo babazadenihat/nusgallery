@@ -42,5 +42,10 @@ export const text = {
             "EN": "Offline",
             "RU": ""
         },
-    ]
+    ],
+    "auctionLabel": {
+        "AZ": "İştirakçı",
+        "EN": "Participant",
+        "RU": ""
+    }
 }

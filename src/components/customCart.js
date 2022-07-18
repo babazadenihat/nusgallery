@@ -1,12 +1,17 @@
 import React from 'react'
 import { Button, makeStyles } from '@material-ui/core';
-import { Row, Col, Container } from 'react-bootstrap'
+import { Row, Col, Container } from 'react-bootstrap';
+import AuctionParticipant from './AuctionParticipant';
+
 import paint2 from "../images/paint2.png";
 import userPhoto from "../images/user-photo.png";
 import heart from "../images/icons/heart.svg";
 import { CardItemBox, DeleteCart } from '../styledComponents/styled';
-import {Close} from '@material-ui/icons';
+import { Close } from '@material-ui/icons';
 import clsx from 'clsx';
+import { text } from '../translations/translation';
+import { useSelector } from 'react-redux';
+
 
 const CustomCart = (props) => {
     const {
@@ -14,18 +19,19 @@ const CustomCart = (props) => {
         cartData,
         filteredData
     } = props
-    
+    console.log(index)
+    const selectedLang = useSelector((state) => state.language.translation)
     const classes = useStyle();
     return (
         <div className={classes.cartContainer}>
             {/* <Row> */}
             <div className='d-flex justify-content-between'>
                 <Col md={4}>
-                    <div><img src={paint2}/></div>
+                    <div><img src={paint2} /></div>
                 </Col>
                 <Col className='me-3' md={8}>
                     <div className='d-flex'>
-                        <div><img className={classes.profileImg} src={userPhoto}/></div>
+                        <div><img className={classes.profileImg} src={userPhoto} /></div>
                         <span className={`ms-2 ${clsx(classes.profileName, classes.poppinsFont)}`}>Tahir Salahov</span>
                     </div>
                     <div className='d-flex mt-3'>
@@ -40,16 +46,22 @@ const CustomCart = (props) => {
                         <span className={`${clsx(classes.textValue, classes.poppinsFont)}`}>170azn</span>
                     </div>
                     <div className='d-flex mt-3 justify-content-between'>
-                        <CardItemBox>
-                            <img src={heart} alt="" />
-                            <span className='ms-2'>24</span>
-                        </CardItemBox>
+                        <div className='d-flex justify-content-between'>
+                            <CardItemBox>
+                                <img src={heart} alt="" />
+                                <span className='ms-2'>24</span>
+                            </CardItemBox>
+                            {
+
+                            }
+                           <div className='ms-3'><AuctionParticipant data={text.auctionLabel}/></div>
+                        </div>
                         <div className="">Bitmə tarixi: 2g, 11s</div>
                     </div>
                 </Col>
             </div>
             {/* </Row> */}
-            <DeleteCart><Close/></DeleteCart>
+            <DeleteCart><Close /></DeleteCart>
         </div>
     )
 }

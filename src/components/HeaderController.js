@@ -16,7 +16,7 @@ import notifimg1 from "../images/notif-img1.png";
 import notifimg2 from "../images/notif-img2.png";
 import notifimg3 from "../images/notif-img3.png";
 
-let token = "ressam";
+let token = "alici";
 
 
 function HeaderController() {
