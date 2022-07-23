@@ -131,7 +131,7 @@ export const Home = () => {
   const [productData, setProductData] = useState({})
 
   useEffect(() => {
-    fetch("http://142.93.97.123/api/v1.0/blogs/").then(
+    fetch("https://142.93.97.123/api/v1.0/blogs/").then(
       response => {
         if (response) {
           return response.json()
@@ -142,7 +142,7 @@ export const Home = () => {
 
 
   useEffect(() => {
-    fetch("http://142.93.97.123/api/v1.0/products/").then(
+    fetch("https://142.93.97.123/api/v1.0/products/").then(
         response => {
             if (response) {
                return response.json()

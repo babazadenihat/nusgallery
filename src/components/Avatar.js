@@ -9,7 +9,7 @@ import { Done } from '@material-ui/icons';
 import clsx from 'clsx';
 import handleFile from '../utilities/handleFile';
 
-const endpoint = "http://127.0.0.1:3003"
+// const endpoint = "https://127.0.0.1:3003"
 const Avatar = () => {
 
     const [nameInput, setNameInput] = useState(localStorage.getItem("artist-name"));
@@ -34,18 +34,18 @@ const Avatar = () => {
 
 
 
-    useEffect(() => {
-        fetch(`${endpoint}/message`, {
-            method: "POST",
-            body: JSON.stringify({ message: value }),
-            // mode: "no-cors",
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
-        }).then(response => response.json())
-            .then(data => console.log(data)).catch((err) => console.log(err));
-    }, [value])
+    // useEffect(() => {
+    //     fetch(`${endpoint}/message`, {
+    //         method: "POST",
+    //         body: JSON.stringify({ message: value }),
+    //         // mode: "no-cors",
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'Accept': 'application/json'
+    //         }
+    //     }).then(response => response.json())
+    //         .then(data => console.log(data)).catch((err) => console.log(err));
+    // }, [value])
 
 
     function onFocus(e) {
