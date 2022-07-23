@@ -58,4 +58,9 @@ export const text = {
         "EN": "Expired date",
         "RU": ""
     },
+    auctionLabel: {
+        "AZ": "İştirakçı",
+        "EN": "Participant",
+        "RU": ""
+    }
 }

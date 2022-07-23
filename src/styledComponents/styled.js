@@ -62,6 +62,7 @@ export const CardItemBox = styled.div`
     border-radius: 16px;
     padding: 6px 10px;
     border: 1px solid #E6E8EC;
+    font-size: 10px
 `
 export const WhiteInput = styled.input`
     border-radius: 8px;

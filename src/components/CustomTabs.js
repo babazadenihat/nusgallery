@@ -32,7 +32,7 @@ export const CustomTabs = (props) => {
         = props
     const classes = useStyle();
     const [filteredData, setfilteredData] = useState([])
-    const [index, setIndex] = useState(null)
+    const [index, setIndex] = useState(0)
     const paintData = [
         {
             id: "1",
@@ -109,6 +109,12 @@ export const CustomTabs = (props) => {
         }
     }, [])
 
+    let index$ = 0;
+    useEffect(() => {
+        index$ = index
+    }, [index])
+
+
     const cardStyle = {
         width: '18rem',
         position: 'relative'
@@ -119,11 +125,15 @@ export const CustomTabs = (props) => {
             <Tabs>
                 <TabList className={[classes.tablist, !rightButtonFunc ? "justify-content-start" :
                     tabEnable && rightButtonFunc ? 'justify-content-between' :
-                        "justify-content-end"]}>
+                        "justify-content-end"]}
+                        >
                     {tabEnable && <div className='d-flex'>
                         {
-                            tabLabel?.map((label => (
-                                <Tab onClick={(e) => setIndex(e.target.value)}>{label[selectedLang]}</Tab>
+                            tabLabel?.map(((label, index) => (
+                                <Tab
+                                // onClick={(e) => setIndex(index)}
+                                
+                                >{label[selectedLang]}</Tab>
                             )))
                         }
                     </div>}
@@ -137,12 +147,12 @@ export const CustomTabs = (props) => {
                         }
                     </div>
                 </TabList>
-
+{console.log(index)}
                 <TabPanel>
                     {
                         cartEnable ?
                             <CustomCart
-                                index={index}
+                                index={index$}
                                 filteredData={filteredData}
                             /> :
                             <div >
