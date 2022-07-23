@@ -1,7 +1,6 @@
 import React from 'react'
 import { Button, makeStyles } from '@material-ui/core';
 import { Row, Col, Container } from 'react-bootstrap';
-import AuctionParticipant from './AuctionParticipant';
 
 import paint2 from "../images/paint2.png";
 import userPhoto from "../images/user-photo.png";
@@ -11,6 +10,7 @@ import { Close } from '@material-ui/icons';
 import clsx from 'clsx';
 import { text } from '../translations/translation';
 import { useSelector } from 'react-redux';
+import LabelComponent from './LabelComponent';
 
 
 const CustomCart = (props) => {
@@ -18,10 +18,12 @@ const CustomCart = (props) => {
         index,
         cartData,
         filteredData
-    } = props
-    console.log(index)
+    } = props;
+    
     const selectedLang = useSelector((state) => state.language.translation)
     const classes = useStyle();
+    const { auctionLabel } = text;
+
     return (
         <div className={classes.cartContainer}>
             {/* <Row> */}
@@ -54,7 +56,7 @@ const CustomCart = (props) => {
                             {
 
                             }
-                           <div className='ms-3'><AuctionParticipant data={text.auctionLabel}/></div>
+                            <div className='ms-3'><LabelComponent data={auctionLabel} /></div>
                         </div>
                         <div className="">Bitmə tarixi: 2g, 11s</div>
                     </div>
