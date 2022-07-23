@@ -42,5 +42,15 @@ export const text = {
             "EN": "Offline",
             "RU": ""
         },
-    ]
+    ],
+    offerCount: {
+        "AZ": "Təklif sayı",
+        "EN": "Offer count",
+        "RU": ""
+    },
+    currentOffer: {
+        "AZ": "Cari təklif",
+        "EN": "Current offer",
+        "RU": ""
+    },
 }
