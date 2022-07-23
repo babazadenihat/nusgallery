@@ -8,13 +8,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import paint1 from "../images/paint1.png";
 import paint2 from "../images/paint2.png";
 import userPhoto from "../images/user-photo.png";
-import heart from "../images/icons/heart.svg";
 import add from "../images/icons/add.svg";
 import { CardItemBox, DraggableBox } from "../styledComponents/styled";
 import { Button, makeStyles } from '@material-ui/core';
 import { IntlProvider, FormattedMessage, FormattedNumber } from 'react-intl'
 import { text } from '../translations/translation';
 import { useSelector } from 'react-redux';
+import LabelComponent from './LabelComponent';
 
 
 
@@ -37,7 +37,7 @@ export const CustomCardComponent = (props) => {
 
     return (
         <>
-            <ProductCard />
+            <ProductCard renderRoute={renderRoute} />
         </>
     )
 }
@@ -45,7 +45,7 @@ export const CustomCardComponent = (props) => {
 
 const ProductCard = ({ renderRoute }) => {
     console.log(renderRoute)
-    const { offerCount, currentOffer } = text;
+    const { offerCount, currentOffer, expiredDate } = text;
     const selectedLang = useSelector((state) => state.language.translation)
     const classes = useStyle();
 
@@ -56,7 +56,7 @@ const ProductCard = ({ renderRoute }) => {
                 <DraggableBox />
             }
             <div>
-                <div className="cardImgCover"><Card.Img variant="top" src={paint1} /></div>
+                <div className={classes.cardImgCover}><Card.Img variant="top" src={paint1} /></div>
             </div>
             <div>
                 <div>
@@ -65,22 +65,20 @@ const ProductCard = ({ renderRoute }) => {
                 </div>
                 <div className={classes.cardTitle}>“No More Voices”</div>
             </div>
-            <div className='d-flex align-items-center'>
-                <div>{offerCount[selectedLang]}</div>
-                <div>24</div>
+            <div className='d-flex align-items-center justify-content-between mt-3'>
+                <div className={classes.cardText}>{offerCount[selectedLang]}</div>
+                <div className={classes.cardTextValue}>24</div>
             </div>
-            <div className='d-flex align-items-center'>
-                <div>{currentOffer[selectedLang]}</div>
-                <div>78&#8380;</div>
+            <div className='d-flex align-items-center justify-content-between'>
+                <div className={classes.cardText}>{currentOffer[selectedLang]}</div>
+                <div className={classes.cardTextValue}>78&#8380;</div>
             </div>
-            <div className='d-flex align-items-center'>
+            <div className='d-flex align-items-center justify-content-between mt-2'>
                 <div>
-                    <img src={heart} alt="" />
-                    <span className='ms-2'>24</span>
-                    {/* burani component etmeli */}
+                    <LabelComponent origin="custom-card" data="24" />
                 </div>
-                <div>
-                    Bitmə tarixi: 2g, 11s
+                <div className={classes.expiredDate}>
+                    {expiredDate[selectedLang]}: 2g, 11s
                 </div>
             </div>
         </div>
@@ -101,7 +99,12 @@ const useStyle = makeStyles(theme => ({
         fontWeight: "400",
         fontStyle: "italic",
         fontSize: "14px",
-        lineHeight: "16px"
+        lineHeight: "16px",
+        marginTop: "15px"
+    },
+    cardImgCover: {
+        padding: "0px 50px",
+        height: "250px"
     },
     tablist: {
         display: "flex",
@@ -117,6 +120,7 @@ const useStyle = makeStyles(theme => ({
         }
     },
     cardStyle: {
+        position: "relative",
         fontFamily: "Poppins",
         background: "#fff",
         padding: "17px 15px",
@@ -126,8 +130,31 @@ const useStyle = makeStyles(theme => ({
             width: "100% !important"
         }
     },
-    icibosSozler: {
-        color: "red"
+    cardText: {
+        fontFamily: "Poppins",
+        color: "#73716E",
+        fontStyle: "normal",
+        fontWeight: 500,
+        fontSize: "10px",
+        lineHeight: "15px",
+    },
+    cardTextValue: {
+        fontFamily: 'Poppins',
+        fontStyle: "normal",
+        fontWeight: 500,
+        fontSize: "12px",
+        lineHeight: "18px",
+        letterSpacing: "-0.005em",
+        color: "#1D2124",
+    },
+    expiredDate: {
+        fontFamily: 'Poppins',
+        fontStyle: "normal",
+        fontWeight: 600,
+        fontSize: "10px",
+        lineHeight: "15px",
+        letterSpacing: "-0.005em",
+        color: "#1D2124",
     }
 }))
 

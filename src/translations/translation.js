@@ -53,4 +53,9 @@ export const text = {
         "EN": "Current offer",
         "RU": ""
     },
+    expiredDate: {
+        "AZ": "Bitmə tarixi",
+        "EN": "Expired date",
+        "RU": ""
+    },
 }

@@ -12,7 +12,7 @@ import { CustomBlogBox } from '../components/CustomBlogBox';
 import { Link } from 'react-router-dom';
 import heart from "../images/icons/heart.svg";
 import userPhoto from "../images/user-photo.png";
-import auxtionIcon from "../images/icons/auxtionIcon.svg";
+import auxtionIcon from "../images/icons/auction.svg";
 import crownIcon from "../images/icons/crownIcon.svg";
 import basket from "../images/icons/basket.svg"
 import clsx from 'clsx';
