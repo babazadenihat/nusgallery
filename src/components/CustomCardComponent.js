@@ -125,6 +125,9 @@ const useStyle = makeStyles(theme => ({
         [theme.breakpoints.down("md")]: {
             width: "100% !important"
         }
+    },
+    icibosSozler: {
+        color: "red"
     }
 }))
 
